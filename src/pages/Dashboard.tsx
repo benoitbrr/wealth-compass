@@ -66,18 +66,27 @@ const Dashboard = () => {
   if (!hasAssets) {
     return (
       <div className="w-full h-full overflow-x-hidden">
-        <div className="px-5 py-8 max-w-4xl mx-auto">
+        <div className="px-5 py-8 max-w-6xl mx-auto space-y-6">
+          {/* Section Compte Courant */}
+          <Card className="p-6 bg-card border">
+            <h2 className="text-lg font-semibold mb-4">Compte courant</h2>
+            <div className="flex items-baseline gap-2">
+              <span className="text-3xl font-bold text-primary">60 000 000</span>
+              <span className="text-xl text-muted-foreground">€</span>
+            </div>
+          </Card>
+
+          {/* Section Investissements */}
           <Card className="p-8 bg-gradient-to-br from-secondary/10 to-bnp-dark-green/10 border-2 border-secondary/30">
             <div className="max-w-2xl mx-auto text-center space-y-6">
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-secondary/20 mb-4">
                 <Target className="w-8 h-8 text-secondary" />
               </div>
               
-              <h2 className="text-2xl font-bold">Bienvenue sur votre espace BNP E-Private</h2>
+              <h2 className="text-2xl font-bold">Investissements</h2>
               
               <p className="text-muted-foreground">
-                Vous n'avez pas encore défini votre stratégie d'investissement ni ajouté vos actifs. 
-                Commencez par définir votre profil investisseur pour obtenir des recommandations personnalisées.
+                Vous n'avez pas encore défini votre stratégie d'investissement.
               </p>
               
               <div className="pt-4">
@@ -87,7 +96,7 @@ const Dashboard = () => {
                   className="bg-secondary hover:bg-bnp-dark-green"
                 >
                   <TrendingUp className="mr-2 w-5 h-5" />
-                  Définir ma stratégie d'investissement
+                  Investir
                 </Button>
               </div>
             </div>
