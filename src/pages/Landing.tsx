@@ -10,9 +10,7 @@ const Landing = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-background bnp-pattern relative flex flex-col">
-      <BNPPattern />
-      
+    <div className="min-h-screen bg-[hsl(158,100%,97%)] dark:bg-background relative flex flex-col">
       {/* Header */}
       <header className="absolute top-0 left-0 right-0 z-50 p-6">
         <div className="container mx-auto flex items-center justify-between">
