@@ -31,10 +31,10 @@ export function AppSidebar() {
   const isActive = (path: string) => currentPath === path;
 
   return (
-    <Sidebar className="w-56" collapsible="none">
-      <SidebarContent className="border-r border-white/5 bg-gradient-to-b from-[#020710] to-[#050A10] relative overflow-hidden">
-        {/* BNP Pattern Overlay */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+    <Sidebar className="w-56 transition-colors duration-200" collapsible="none">
+      <SidebarContent className="border-r border-border bg-card relative overflow-hidden">
+        {/* BNP Pattern Overlay - only visible in dark mode */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none dark:block hidden">
           <svg className="w-full h-full" viewBox="0 0 400 800">
             <defs>
               <pattern id="bnp-sidebar-stars" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
@@ -49,7 +49,7 @@ export function AppSidebar() {
         </div>
 
         {/* Logo */}
-        <div className="p-4 border-b border-white/5 relative">
+        <div className="p-4 border-b border-border relative">
           <div className="scale-90 origin-left">
             <BNPLogo />
           </div>
@@ -69,8 +69,8 @@ export function AppSidebar() {
                         className={`
                           flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200 group relative
                           ${active 
-                            ? "bg-secondary/10 text-white font-medium" 
-                            : "text-[#C8D0D8] hover:bg-white/5 hover:text-white"
+                            ? "bg-secondary/[0.08] dark:bg-secondary/10 text-[#1A1F24] dark:text-white font-medium" 
+                            : "text-[#1A1F24] dark:text-[#C7D1D9] hover:bg-[#F3F5F7] dark:hover:bg-[#0D1520]"
                           }
                         `}
                       >
@@ -81,7 +81,9 @@ export function AppSidebar() {
                         
                         <item.icon 
                           className={`w-5 h-5 flex-shrink-0 transition-colors ${
-                            active ? "text-white" : "text-[#C8D0D8] group-hover:text-white"
+                            active 
+                              ? "text-[#1A1F24] dark:text-white" 
+                              : "text-[#1A1F24] dark:text-[#C7D1D9] group-hover:text-[#000] dark:group-hover:text-white"
                           }`} 
                           strokeWidth={1.5}
                         />
@@ -96,9 +98,9 @@ export function AppSidebar() {
         </SidebarGroup>
 
         {/* Footer Info */}
-        <div className="mt-auto p-4 border-t border-white/5 relative">
-          <div className="text-xs text-[#6B7280] space-y-0.5">
-            <p className="font-medium text-[#C8D0D8]">BNP Private Banking</p>
+        <div className="mt-auto p-4 border-t border-border relative">
+          <div className="text-xs text-muted-foreground space-y-0.5">
+            <p className="font-medium text-[#1A1F24] dark:text-[#C7D1D9]">BNP Private Banking</p>
             <p className="text-[10px]">Support 24/7</p>
           </div>
         </div>
