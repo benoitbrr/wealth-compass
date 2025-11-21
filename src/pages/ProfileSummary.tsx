@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Shield, Target, TrendingUp, User, MapPin, Award, ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
 import BNPLogo from "@/components/BNPLogo";
 import BNPPattern from "@/components/BNPPattern";
+import AdvisorSection from "@/components/AdvisorSection";
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import { useEffect } from "react";
 
@@ -209,19 +210,7 @@ const ProfileSummary = () => {
               </Button>
             </Card>
 
-            <Card className="p-6 border-2 hover:shadow-card transition-all">
-              <Target className="w-10 h-10 text-primary mb-4" />
-              <h3 className="font-bold text-lg mb-2">Conseiller dédié</h3>
-              <p className="text-sm text-muted-foreground mb-4">
-                Échangez avec un expert BNP Paribas Wealth Management
-              </p>
-              <Button 
-                variant="outline"
-                className="w-full border-2"
-              >
-                Prendre rendez-vous
-              </Button>
-            </Card>
+            <AdvisorSection />
           </div>
         </div>
       </main>
