@@ -22,7 +22,7 @@ const performanceAssets = [
     name: "Assurance-vie",
     value: 249570,
     change: 1248,
-    changePercent: 0.50,
+    changePercent: 0.5,
     sparklineData: [245000, 246000, 247000, 248000, 249000, 249570],
   },
   {
@@ -50,31 +50,27 @@ const performanceAssets = [
     name: "Livret A",
     value: 22300,
     change: 89,
-    changePercent: 0.40,
+    changePercent: 0.4,
     sparklineData: [22100, 22150, 22200, 22250, 22280, 22300],
   },
 ];
 
 const Dashboard = () => {
   return (
-    <DashboardLayout>
-      <div className="w-full h-full overflow-x-hidden">
-        <div className="p-4 md:p-5 space-y-4 max-w-full mx-auto">
-          {/* Top Section: Chart + Donut */}
-          <div className="grid grid-cols-1 xl:grid-cols-[1.8fr_1fr] gap-4 w-full">
-            <div className="w-full min-w-0">
-              <WealthEvolutionChart />
-            </div>
-            <div className="w-full min-w-0">
-              <DonutAllocation />
-            </div>
+    <div className="w-full h-full overflow-x-hidden">
+      <div className="p-4 md:p-5 space-y-4 max-w-full mx-auto">
+        <div className="grid grid-cols-1 xl:grid-cols-[1.8fr_1fr] gap-4 w-full">
+          <div className="w-full min-w-0">
+            <WealthEvolutionChart />
           </div>
-
-          {/* Performance Section */}
-          <PerformanceCarousel assets={performanceAssets} />
+          <div className="w-full min-w-0">
+            <DonutAllocation />
+          </div>
         </div>
+
+        <PerformanceCarousel assets={performanceAssets} />
       </div>
-    </DashboardLayout>
+    </div>
   );
 };
 
