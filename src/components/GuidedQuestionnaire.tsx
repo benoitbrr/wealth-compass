@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { ChevronLeft, ChevronRight, Target } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import AppointmentModal from "@/components/AppointmentModal";
+import { cn } from "@/lib/utils";
 
 interface Question {
   id: string;
@@ -83,6 +84,7 @@ const GuidedQuestionnaire = ({ profileData, onComplete }: GuidedQuestionnairePro
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [completed, setCompleted] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [slideDirection, setSlideDirection] = useState<"left" | "right">("right");
 
   const progress = ((currentStep + 1) / questions.length) * 100;
 
@@ -97,6 +99,7 @@ const GuidedQuestionnaire = ({ profileData, onComplete }: GuidedQuestionnairePro
     }
 
     if (currentStep < questions.length - 1) {
+      setSlideDirection("right");
       setCurrentStep(currentStep + 1);
     } else {
       generateStrategy();
@@ -105,6 +108,7 @@ const GuidedQuestionnaire = ({ profileData, onComplete }: GuidedQuestionnairePro
 
   const handlePrevious = () => {
     if (currentStep > 0) {
+      setSlideDirection("left");
       setCurrentStep(currentStep - 1);
     }
   };
@@ -248,59 +252,102 @@ const GuidedQuestionnaire = ({ profileData, onComplete }: GuidedQuestionnairePro
   const currentQuestion = questions[currentStep];
 
   return (
-    <Card className="p-6">
-      <div className="mb-6">
-        <div className="flex items-center justify-between mb-2">
-          <h3 className="text-lg font-bold">Trouver une stratégie qui me correspond</h3>
+    <div>
+      {/* Title and Progress */}
+      <div className="mb-6 text-center">
+        <h3 className="text-xl font-bold mb-3">Trouver une stratégie qui me correspond</h3>
+        <div className="flex items-center justify-center gap-3 mb-2">
           <span className="text-sm text-muted-foreground">
-            {currentStep + 1} / {questions.length}
+            Question {currentStep + 1} / {questions.length}
           </span>
         </div>
-        <Progress value={progress} className="h-2" />
+        <div className="max-w-md mx-auto">
+          <Progress value={progress} className="h-2" />
+        </div>
       </div>
 
-      <div className="mb-8">
-        <h4 className="font-semibold mb-4">{currentQuestion.question}</h4>
-        <RadioGroup
-          value={answers[currentQuestion.id]}
-          onValueChange={(value) =>
-            setAnswers({ ...answers, [currentQuestion.id]: value })
-          }
-        >
-          <div className="space-y-3">
-            {currentQuestion.options.map((option) => (
-              <div
-                key={option.value}
-                className="flex items-center space-x-3 p-3 rounded-lg border hover:border-secondary/50 transition-colors"
-              >
-                <RadioGroupItem value={option.value} id={option.value} />
-                <Label
-                  htmlFor={option.value}
-                  className="flex-1 cursor-pointer"
-                >
-                  {option.label}
-                </Label>
-              </div>
-            ))}
-          </div>
-        </RadioGroup>
-      </div>
-
-      <div className="flex justify-between">
-        <Button
-          variant="outline"
+      {/* Carousel Container */}
+      <div className="relative flex items-center justify-center gap-4 md:gap-8">
+        {/* Left Arrow */}
+        <button
           onClick={handlePrevious}
           disabled={currentStep === 0}
+          className={cn(
+            "flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all",
+            "border-2 hover:scale-110",
+            currentStep === 0
+              ? "opacity-30 cursor-not-allowed border-muted"
+              : "border-secondary/30 hover:border-secondary hover:bg-secondary/10"
+          )}
+          aria-label="Question précédente"
         >
-          <ChevronLeft className="w-4 h-4 mr-2" />
-          Précédent
-        </Button>
-        <Button onClick={handleNext}>
-          {currentStep === questions.length - 1 ? "Voir ma stratégie" : "Suivant"}
-          <ChevronRight className="w-4 h-4 ml-2" />
-        </Button>
+          <ChevronLeft className={cn("w-5 h-5", currentStep === 0 ? "text-muted" : "text-secondary")} />
+        </button>
+
+        {/* Question Card with Slide Animation */}
+        <Card 
+          key={currentStep}
+          className={cn(
+            "w-full max-w-2xl p-8 animate-in",
+            slideDirection === "right" ? "slide-in-from-right-10" : "slide-in-from-left-10",
+            "fade-in duration-300"
+          )}
+        >
+          <h4 className="font-bold text-lg mb-6 text-center">{currentQuestion.question}</h4>
+          
+          <RadioGroup
+            value={answers[currentQuestion.id]}
+            onValueChange={(value) =>
+              setAnswers({ ...answers, [currentQuestion.id]: value })
+            }
+          >
+            <div className="space-y-3">
+              {currentQuestion.options.map((option) => (
+                <div
+                  key={option.value}
+                  className={cn(
+                    "flex items-center space-x-3 p-4 rounded-lg border-2 transition-all cursor-pointer",
+                    "hover:border-secondary/50 hover:shadow-sm",
+                    answers[currentQuestion.id] === option.value
+                      ? "border-secondary bg-secondary/10 shadow-sm"
+                      : "border-border"
+                  )}
+                  onClick={() => setAnswers({ ...answers, [currentQuestion.id]: option.value })}
+                >
+                  <RadioGroupItem value={option.value} id={option.value} />
+                  <Label
+                    htmlFor={option.value}
+                    className="flex-1 cursor-pointer font-medium"
+                  >
+                    {option.label}
+                  </Label>
+                </div>
+              ))}
+            </div>
+          </RadioGroup>
+
+          {/* Mobile-friendly next button inside card */}
+          <div className="mt-6 flex justify-center md:hidden">
+            <Button onClick={handleNext} className="w-full max-w-xs">
+              {currentStep === questions.length - 1 ? "Voir ma stratégie" : "Suivant"}
+              <ChevronRight className="w-4 h-4 ml-2" />
+            </Button>
+          </div>
+        </Card>
+
+        {/* Right Arrow */}
+        <button
+          onClick={handleNext}
+          className={cn(
+            "hidden md:flex flex-shrink-0 w-10 h-10 rounded-full items-center justify-center transition-all",
+            "border-2 border-secondary/30 hover:border-secondary hover:scale-110 hover:bg-secondary/10"
+          )}
+          aria-label="Question suivante"
+        >
+          <ChevronRight className="w-5 h-5 text-secondary" />
+        </button>
       </div>
-    </Card>
+    </div>
   );
 };
 
