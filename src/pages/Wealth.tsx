@@ -175,7 +175,6 @@ export default function PortfolioPage() {
                   onClick={() => {
                     console.log("Open details for category:", cat.key);
                   }}
-                  className={cat.muted ? "opacity-60" : "bg-primary/15 border-primary/60"}
                 />
               </div>
             );

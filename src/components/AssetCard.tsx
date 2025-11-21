@@ -16,16 +16,16 @@ const AssetCard = ({ title, subtitle, icon: Icon, onClick, className }: AssetCar
       role={onClick ? "button" : undefined}
       onClick={onClick}
       className={cn(
-        "group relative flex aspect-square w-full max-w-[180px] mx-auto flex-col items-center justify-center gap-2 rounded-full border border-border/60 bg-muted/30 text-card-foreground shadow-sm transition-all hover:-translate-y-1 hover:border-primary/60 hover:bg-primary/10 hover:shadow-lg",
+        "group flex aspect-[4/3] md:aspect-square w-full flex-col items-center justify-center gap-3 rounded-2xl border border-border/60 bg-muted/40 px-4 py-5 text-center shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:bg-card hover:shadow-lg",
         className,
       )}
     >
-      <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/15 text-primary">
+      <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-primary">
         <Icon className="h-5 w-5" />
       </div>
       <div className="space-y-1">
         <h3 className="font-semibold text-sm md:text-base text-card-foreground">{title}</h3>
-        <p className="text-xs md:text-sm text-muted-foreground break-words">{subtitle}</p>
+        <p className="text-xs md:text-sm text-muted-foreground">{subtitle}</p>
       </div>
     </Card>
   );
