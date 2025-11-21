@@ -1,4 +1,4 @@
-import { LayoutDashboard, Briefcase, BarChart3, TrendingUp, Settings, Users } from "lucide-react";
+import { LayoutDashboard, Briefcase, BarChart3, TrendingUp, Settings, Users, Target } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import {
@@ -15,9 +15,10 @@ import BNPLogo from "@/components/BNPLogo";
 
 const menuItems = [
   { title: "Synthèse", url: "/dashboard", icon: LayoutDashboard },
-  { title: "Patrimoine", url: "/wealth", icon: Briefcase },
+  { title: "Portefeuille", url: "/wealth", icon: Briefcase },
   { title: "Analyse", url: "/analysis", icon: BarChart3 },
   { title: "Investir", url: "/invest", icon: TrendingUp },
+  { title: "Ma stratégie", url: "/my-strategy", icon: Target },
   { title: "Outils", url: "/tools", icon: Settings },
   { title: "Communauté", url: "/community", icon: Users },
 ];

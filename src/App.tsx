@@ -6,11 +6,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { OnboardingProvider } from "@/contexts/OnboardingContext";
 import Landing from "./pages/Landing";
 import ChatOnboarding from "./pages/ChatOnboarding";
-import ProfileSummary from "./pages/ProfileSummary";
 import Dashboard from "./pages/Dashboard";
 import Wealth from "./pages/Wealth";
 import Analysis from "./pages/Analysis";
 import Invest from "./pages/Invest";
+import InvestDefineStrategy from "./pages/InvestDefineStrategy";
+import InvestExploreSolutions from "./pages/InvestExploreSolutions";
 import Tools from "./pages/Tools";
 import Community from "./pages/Community";
 import MyStrategy from "./pages/MyStrategy";
@@ -31,13 +32,14 @@ const App = () => (
             {/* Public routes */}
             <Route path="/" element={<Landing />} />
             <Route path="/onboarding" element={<ChatOnboarding />} />
-            <Route path="/profile-summary" element={<ProfileSummary />} />
             
             {/* Protected routes with sidebar */}
             <Route path="/dashboard" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
             <Route path="/wealth" element={<DashboardLayout><Wealth /></DashboardLayout>} />
             <Route path="/analysis" element={<DashboardLayout><Analysis /></DashboardLayout>} />
             <Route path="/invest" element={<DashboardLayout><Invest /></DashboardLayout>} />
+            <Route path="/invest/define" element={<DashboardLayout><InvestDefineStrategy /></DashboardLayout>} />
+            <Route path="/invest/explore" element={<DashboardLayout><InvestExploreSolutions /></DashboardLayout>} />
             <Route path="/tools" element={<DashboardLayout><Tools /></DashboardLayout>} />
             <Route path="/community" element={<DashboardLayout><Community /></DashboardLayout>} />
             <Route path="/my-strategy" element={<DashboardLayout><MyStrategy /></DashboardLayout>} />
