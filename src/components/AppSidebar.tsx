@@ -31,7 +31,7 @@ export function AppSidebar() {
   const isActive = (path: string) => currentPath === path;
 
   return (
-    <Sidebar className={open ? "w-56" : "w-16"} collapsible="icon">
+    <Sidebar className="w-56" collapsible="none">
       <SidebarContent className="border-r border-white/5 bg-gradient-to-b from-[#020710] to-[#050A10] relative overflow-hidden">
         {/* BNP Pattern Overlay */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
@@ -49,25 +49,10 @@ export function AppSidebar() {
         </div>
 
         {/* Logo */}
-        <div className={`p-4 border-b border-white/5 relative ${!open && "px-2"}`}>
-          {open ? (
-            <div className="scale-90 origin-left">
-              <BNPLogo />
-            </div>
-          ) : (
-            <div className="flex justify-center">
-              <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
-                <path d="M16 2L19.5 12.5L30 16L19.5 19.5L16 30L12.5 19.5L2 16L12.5 12.5L16 2Z" 
-                      fill="url(#bnp-mini)" />
-                <defs>
-                  <linearGradient id="bnp-mini" x1="2" y1="2" x2="30" y2="30">
-                    <stop offset="0%" stopColor="hsl(var(--secondary))" />
-                    <stop offset="100%" stopColor="hsl(var(--bnp-dark-green))" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
-          )}
+        <div className="p-4 border-b border-white/5 relative">
+          <div className="scale-90 origin-left">
+            <BNPLogo />
+          </div>
         </div>
 
         {/* Menu Items */}
@@ -100,9 +85,7 @@ export function AppSidebar() {
                           }`} 
                           strokeWidth={1.5}
                         />
-                        {open && (
-                          <span className="flex-1 text-sm">{item.title}</span>
-                        )}
+                        <span className="flex-1 text-sm">{item.title}</span>
                       </NavLink>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -113,14 +96,12 @@ export function AppSidebar() {
         </SidebarGroup>
 
         {/* Footer Info */}
-        {open && (
-          <div className="mt-auto p-4 border-t border-white/5 relative">
-            <div className="text-xs text-[#6B7280] space-y-0.5">
-              <p className="font-medium text-[#C8D0D8]">BNP Private Banking</p>
-              <p className="text-[10px]">Support 24/7</p>
-            </div>
+        <div className="mt-auto p-4 border-t border-white/5 relative">
+          <div className="text-xs text-[#6B7280] space-y-0.5">
+            <p className="font-medium text-[#C8D0D8]">BNP Private Banking</p>
+            <p className="text-[10px]">Support 24/7</p>
           </div>
-        )}
+        </div>
       </SidebarContent>
     </Sidebar>
   );
