@@ -11,10 +11,12 @@ import {
 import { Badge } from "@/components/ui/badge";
 import ProfilePanel from "./ProfilePanel";
 import AddAssetPanel from "./AddAssetPanel";
+import { usePortfolio } from "@/hooks/usePortfolio";
 
 const HeaderBand = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isAddAssetOpen, setIsAddAssetOpen] = useState(false);
+  const { totalAssets, loading } = usePortfolio();
 
   return (
     <>
@@ -27,7 +29,7 @@ const HeaderBand = () => {
               Valeur totale des actifs
             </span>
             <span className="text-sm font-semibold text-primary">
-              60 000 000 €
+              {loading ? '...' : `${totalAssets.toLocaleString('fr-FR')} €`}
             </span>
           </div>
 

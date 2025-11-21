@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useInvestmentProfile } from "@/hooks/useInvestmentProfile";
 
 interface OnboardingData {
   firstName: string;
@@ -11,13 +13,15 @@ interface OnboardingData {
   assetCategories: string[];
   riskAppetite: string;
   completed: boolean;
+  selectedStrategy?: string;
 }
 
 interface OnboardingContextType {
   data: OnboardingData;
   updateData: (field: keyof OnboardingData, value: any) => void;
-  completeOnboarding: () => void;
+  completeOnboarding: (selectedStrategy: string) => Promise<void>;
   resetOnboarding: () => void;
+  loading: boolean;
 }
 
 const defaultData: OnboardingData = {
@@ -36,30 +40,59 @@ const defaultData: OnboardingData = {
 const OnboardingContext = createContext<OnboardingContextType | undefined>(undefined);
 
 export const OnboardingProvider = ({ children }: { children: ReactNode }) => {
-  const [data, setData] = useState<OnboardingData>(() => {
-    const saved = localStorage.getItem("bnp-onboarding");
-    return saved ? JSON.parse(saved) : defaultData;
-  });
+  const [data, setData] = useState<OnboardingData>(defaultData);
+  const [loading, setLoading] = useState(true);
+  const { investmentProfile, updateInvestmentProfile } = useInvestmentProfile();
+
+  // Load existing investment profile data
+  useEffect(() => {
+    if (investmentProfile) {
+      setData({
+        firstName: "",
+        age: null,
+        country: "",
+        experience: investmentProfile.experience || "",
+        mainChallenge: investmentProfile.main_challenge || "",
+        mainGoal: investmentProfile.main_goal || "",
+        wealthLevel: investmentProfile.wealth_level || "",
+        assetCategories: investmentProfile.asset_categories || [],
+        riskAppetite: investmentProfile.risk_appetite || "",
+        selectedStrategy: investmentProfile.selected_strategy || "",
+        completed: !!investmentProfile.selected_strategy,
+      });
+    }
+    setLoading(false);
+  }, [investmentProfile]);
 
   const updateData = (field: keyof OnboardingData, value: any) => {
-    const newData = { ...data, [field]: value };
-    setData(newData);
-    localStorage.setItem("bnp-onboarding", JSON.stringify(newData));
+    setData(prev => ({ ...prev, [field]: value }));
   };
 
-  const completeOnboarding = () => {
-    const newData = { ...data, completed: true };
-    setData(newData);
-    localStorage.setItem("bnp-onboarding", JSON.stringify(newData));
+  const completeOnboarding = async (selectedStrategy: string) => {
+    try {
+      await updateInvestmentProfile({
+        experience: data.experience,
+        main_challenge: data.mainChallenge,
+        main_goal: data.mainGoal,
+        wealth_level: data.wealthLevel,
+        asset_categories: data.assetCategories,
+        risk_appetite: data.riskAppetite,
+        selected_strategy: selectedStrategy,
+      });
+
+      setData(prev => ({ ...prev, completed: true, selectedStrategy }));
+    } catch (error) {
+      console.error('Error completing onboarding:', error);
+      throw error;
+    }
   };
 
   const resetOnboarding = () => {
     setData(defaultData);
-    localStorage.removeItem("bnp-onboarding");
   };
 
   return (
-    <OnboardingContext.Provider value={{ data, updateData, completeOnboarding, resetOnboarding }}>
+    <OnboardingContext.Provider value={{ data, updateData, completeOnboarding, resetOnboarding, loading }}>
       {children}
     </OnboardingContext.Provider>
   );
