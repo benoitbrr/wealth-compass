@@ -46,44 +46,44 @@ const PerformanceCarousel = ({ assets }: PerformanceCarouselProps) => {
   };
 
   return (
-    <div className="space-y-3 w-full">
+    <div className="space-y-2 w-full">
       {/* Control Bar */}
-      <div className="flex items-center justify-between gap-3 flex-wrap">
-        <h2 className="text-lg font-bold tracking-tight">Ma performance</h2>
+      <div className="flex items-center justify-between gap-2 flex-wrap">
+        <h2 className="text-base font-bold tracking-tight">Ma performance</h2>
         
-        <div className="flex items-center gap-2 flex-wrap">
+        <div className="flex items-center gap-1.5 flex-wrap">
           {/* Filter Buttons */}
           <Button
             variant="ghost"
             size="sm"
-            className="h-9 px-4 rounded-full bg-muted/30 dark:bg-muted/10 hover:bg-muted/50 dark:hover:bg-muted/20 text-sm font-medium transition-all"
+            className="h-8 px-3 rounded-full bg-muted/30 dark:bg-muted/10 hover:bg-muted/50 dark:hover:bg-muted/20 text-xs font-medium transition-all"
           >
             Trier par
           </Button>
           <Button
             variant="ghost"
             size="sm"
-            className="h-9 px-4 rounded-full bg-muted/30 dark:bg-muted/10 hover:bg-muted/50 dark:hover:bg-muted/20 text-sm font-medium transition-all"
+            className="h-8 px-3 rounded-full bg-muted/30 dark:bg-muted/10 hover:bg-muted/50 dark:hover:bg-muted/20 text-xs font-medium transition-all"
           >
             Toutes les catégories
           </Button>
           <Button
             variant="ghost"
             size="sm"
-            className="h-9 px-4 rounded-full bg-muted/30 dark:bg-muted/10 hover:bg-muted/50 dark:hover:bg-muted/20 text-sm font-medium transition-all flex items-center gap-1"
+            className="h-8 px-3 rounded-full bg-muted/30 dark:bg-muted/10 hover:bg-muted/50 dark:hover:bg-muted/20 text-xs font-medium transition-all flex items-center gap-1"
           >
             Voir plus
-            <ArrowUpRight className="w-3.5 h-3.5" />
+            <ArrowUpRight className="w-3 h-3" />
           </Button>
 
           {/* Navigation Arrows */}
-          <div className="flex items-center gap-1 ml-2">
+          <div className="flex items-center gap-1 ml-1">
             <Button
               variant="ghost"
               size="icon"
               onClick={() => scroll("left")}
               disabled={!canScrollLeft}
-              className="h-9 w-9 rounded-full bg-muted/30 dark:bg-muted/10 hover:bg-muted/50 dark:hover:bg-muted/20 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              className="h-8 w-8 rounded-full bg-muted/30 dark:bg-muted/10 hover:bg-muted/50 dark:hover:bg-muted/20 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
             >
               <ChevronLeft className="w-4 h-4" />
             </Button>
@@ -92,7 +92,7 @@ const PerformanceCarousel = ({ assets }: PerformanceCarouselProps) => {
               size="icon"
               onClick={() => scroll("right")}
               disabled={!canScrollRight}
-              className="h-9 w-9 rounded-full bg-muted/30 dark:bg-muted/10 hover:bg-muted/50 dark:hover:bg-muted/20 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              className="h-8 w-8 rounded-full bg-muted/30 dark:bg-muted/10 hover:bg-muted/50 dark:hover:bg-muted/20 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
             >
               <ChevronRight className="w-4 h-4" />
             </Button>
@@ -105,7 +105,7 @@ const PerformanceCarousel = ({ assets }: PerformanceCarouselProps) => {
         <div
           ref={scrollContainerRef}
           onScroll={checkScrollability}
-          className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide scroll-smooth"
+          className="flex gap-3 overflow-x-auto pb-3 scrollbar-hide scroll-smooth"
           style={{
             scrollbarWidth: "none",
             msOverflowStyle: "none",
