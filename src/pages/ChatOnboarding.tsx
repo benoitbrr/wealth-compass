@@ -19,13 +19,42 @@ const ChatOnboarding = () => {
   const [currentStep, setCurrentStep] = useState<Step>("welcome");
   const [messages, setMessages] = useState<Array<{ role: "assistant" | "user"; content: string }>>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+  const prevMessagesLengthRef = useRef(0);
+
+  const isNearBottom = () => {
+    const container = chatContainerRef.current;
+    if (!container) return true;
+    
+    const threshold = 100;
+    const distanceFromBottom = container.scrollHeight - container.scrollTop - container.clientHeight;
+    return distanceFromBottom < threshold;
+  };
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (!messagesEndRef.current) return;
+    
+    // Only scroll if user is near the bottom
+    if (isNearBottom()) {
+      messagesEndRef.current.scrollIntoView({ 
+        behavior: "smooth", 
+        block: "end",
+        inline: "nearest"
+      });
+    }
   };
 
   useEffect(() => {
-    scrollToBottom();
+    // Only auto-scroll when new assistant messages are added
+    const lastMessage = messages[messages.length - 1];
+    const hasNewMessage = messages.length > prevMessagesLengthRef.current;
+    
+    if (hasNewMessage && lastMessage?.role === "assistant") {
+      // Small delay to ensure DOM is updated
+      setTimeout(scrollToBottom, 100);
+    }
+    
+    prevMessagesLengthRef.current = messages.length;
   }, [messages]);
 
   useEffect(() => {
@@ -121,7 +150,7 @@ const ChatOnboarding = () => {
       </header>
 
       {/* Chat Container */}
-      <main className="flex-1 overflow-y-auto">
+      <main ref={chatContainerRef} className="flex-1 overflow-y-auto">
         <div className="container mx-auto px-4 py-8 max-w-4xl">
           <div className="space-y-6 mb-32">
             {messages.map((msg, idx) => (
