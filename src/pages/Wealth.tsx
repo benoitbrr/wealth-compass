@@ -1,90 +1,125 @@
 import { Card } from "@/components/ui/card";
-import { Building2, TrendingUp, Home, Bitcoin, Briefcase, PiggyBank, Shield } from "lucide-react";
+import { Landmark, TrendingUp, Home, Bitcoin, Briefcase, Shield } from "lucide-react";
 import AssetCard from "@/components/AssetCard";
+import { usePortfolio } from "@/hooks/usePortfolio";
+import { useMemo } from "react";
 
 const Wealth = () => {
-  const assets = [
-    {
-      category: "Comptes BNP Paribas",
-      icon: Building2,
-      color: "text-primary",
-      items: [
-        { name: "Compte courant", amount: 45230, change: 2.3 },
-        { name: "Compte Premium", amount: 125000, change: 0.8 },
-      ]
-    },
-    {
-      category: "Assurances-vie BNP",
-      icon: PiggyBank,
-      color: "text-secondary",
-      items: [
-        { name: "Horizon Patrimoine", amount: 380000, change: 5.2 },
-        { name: "Multisupport Excellence", amount: 225000, change: 4.1 },
-      ]
-    },
-    {
-      category: "Immobilier",
-      icon: Home,
-      color: "text-chart-3",
-      items: [
-        { name: "Résidence principale (Paris 16e)", amount: 1250000, change: 8.5 },
-        { name: "Appartement locatif (Lyon)", amount: 320000, change: 6.2 },
-      ]
-    },
-    {
-      category: "Bourse & Placements",
-      icon: TrendingUp,
-      color: "text-chart-4",
-      items: [
-        { name: "PEA", amount: 185000, change: 12.8 },
-        { name: "Compte-titres", amount: 142000, change: -2.1 },
-      ]
-    },
-    {
-      category: "Crypto-actifs",
-      icon: Bitcoin,
-      color: "text-chart-5",
-      items: [
-        { name: "Bitcoin", amount: 58420, change: 15.3 },
-        { name: "Ethereum", amount: 32000, change: 8.7 },
-      ]
-    },
-    {
-      category: "Private Equity",
-      icon: Briefcase,
-      color: "text-primary",
-      items: [
-        { name: "Fonds Innovation Tech", amount: 150000, change: 18.2 },
-      ]
-    },
-  ];
+  const { accounts, positions, totalAssets, cashBalance, loading } = usePortfolio();
+
+  // Calculate aggregated values per asset category
+  const categoryData = useMemo(() => {
+    const stocksValue = positions
+      .filter(p => ['STOCK', 'FUND', 'ETF'].includes(p.asset_type))
+      .reduce((sum, p) => sum + Number(p.current_value), 0);
+    
+    const realEstateValue = positions
+      .filter(p => ['REAL_ESTATE', 'SCPI', 'OPCI'].includes(p.asset_type))
+      .reduce((sum, p) => sum + Number(p.current_value), 0);
+    
+    const privateEquityValue = positions
+      .filter(p => ['PRIVATE_EQUITY', 'PE_FUND'].includes(p.asset_type))
+      .reduce((sum, p) => sum + Number(p.current_value), 0);
+    
+    const cryptoValue = positions
+      .filter(p => ['CRYPTO'].includes(p.asset_type))
+      .reduce((sum, p) => sum + Number(p.current_value), 0);
+
+    const total = totalAssets || 1; // Avoid division by zero
+
+    return [
+      {
+        id: 'cash',
+        name: "Liquidités",
+        subtitle: "Comptes courants, livrets, trésorerie",
+        icon: Landmark,
+        amount: cashBalance,
+        percentage: (cashBalance / total) * 100,
+        change: 0,
+      },
+      {
+        id: 'stocks',
+        name: "Marchés cotés",
+        subtitle: "Actions, ETF, OPCVM",
+        icon: TrendingUp,
+        amount: stocksValue,
+        percentage: (stocksValue / total) * 100,
+        change: 0,
+      },
+      {
+        id: 'real-estate',
+        name: "Immobilier",
+        subtitle: "Biens en direct, SCPI, OPCI",
+        icon: Home,
+        amount: realEstateValue,
+        percentage: (realEstateValue / total) * 100,
+        change: 0,
+      },
+      {
+        id: 'private-equity',
+        name: "Private Equity",
+        subtitle: "Fonds non cotés, co-investissements",
+        icon: Briefcase,
+        amount: privateEquityValue,
+        percentage: (privateEquityValue / total) * 100,
+        change: 0,
+      },
+      {
+        id: 'crypto',
+        name: "Crypto",
+        subtitle: "Portefeuilles et plateformes d'échange",
+        icon: Bitcoin,
+        amount: cryptoValue,
+        percentage: (cryptoValue / total) * 100,
+        change: 0,
+      },
+    ];
+  }, [accounts, positions, totalAssets, cashBalance]);
+
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-8 max-w-6xl">
+        <div className="flex items-center justify-center h-64">
+          <p className="text-muted-foreground">Chargement de votre portefeuille...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Patrimoine détaillé</h1>
-        <p className="text-muted-foreground">Vue exhaustive de tous vos actifs</p>
+        <h1 className="text-3xl font-bold mb-2">Portefeuille</h1>
+        <p className="text-muted-foreground">Vue d'ensemble de vos actifs par catégorie</p>
       </div>
 
-      <div className="space-y-8">
-        {assets.map((category, idx) => (
-          <div key={idx} className="animate-fade-in" style={{ animationDelay: `${idx * 0.1}s` }}>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-2 rounded-lg bg-secondary/10">
-                <category.icon className={`w-6 h-6 ${category.color}`} />
+      {/* Portfolio Bubbles Section */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
+        {categoryData.map((category) => (
+          <div
+            key={category.id}
+            className="cursor-pointer transition-transform hover:scale-105"
+            onClick={() => console.log(`Clicked on ${category.name}`)}
+          >
+            <Card className="p-5 h-full hover:shadow-lg transition-all hover:border-primary/20">
+              <div className="flex items-start gap-3 mb-3">
+                <div className="p-2 rounded-lg bg-primary/10">
+                  <category.icon className="w-5 h-5 text-primary" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-sm mb-0.5">{category.name}</h3>
+                  <p className="text-xs text-muted-foreground line-clamp-1">{category.subtitle}</p>
+                </div>
               </div>
-              <h2 className="text-xl font-semibold">{category.category}</h2>
-            </div>
-            <div className="grid md:grid-cols-2 gap-4">
-              {category.items.map((item, itemIdx) => (
-                <AssetCard
-                  key={itemIdx}
-                  name={item.name}
-                  amount={item.amount}
-                  change={item.change}
-                />
-              ))}
-            </div>
+              <div className="mt-4">
+                <p className="text-2xl font-bold mb-1">
+                  {category.amount.toLocaleString("fr-FR")} €
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  {category.percentage.toFixed(1)}% du patrimoine
+                </p>
+              </div>
+            </Card>
           </div>
         ))}
       </div>
@@ -94,7 +129,7 @@ const Wealth = () => {
         <div className="text-center">
           <p className="text-sm text-muted-foreground mb-2">Patrimoine total consolidé</p>
           <p className="text-5xl font-bold bg-gradient-to-r from-primary via-secondary to-bnp-dark-green bg-clip-text text-transparent mb-4">
-            2 847 650 €
+            {totalAssets.toLocaleString("fr-FR")} €
           </p>
           <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
             <Shield className="w-3 h-3" />
