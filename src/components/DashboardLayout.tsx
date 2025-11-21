@@ -26,14 +26,14 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
 
   return (
     <SidebarProvider defaultOpen={true}>
-      <div className="min-h-screen flex w-full bg-background bnp-pattern relative">
+      <div className="min-h-screen flex w-full bg-background bnp-pattern relative overflow-x-hidden">
         <BNPPattern />
         <AppSidebar />
         
-        <div className="flex-1 flex flex-col relative ml-56">
+        <div className="flex-1 flex flex-col relative ml-56 w-[calc(100%-14rem)]">
           {/* Top Header */}
-          <header className="h-14 border-b bg-card/80 backdrop-blur-xl sticky top-0 z-40 shadow-card">
-            <div className="h-full px-4 flex items-center justify-end gap-2">
+          <header className="h-14 border-b bg-card/80 backdrop-blur-xl sticky top-0 z-40 shadow-card flex-shrink-0">
+            <div className="h-full px-6 flex items-center justify-end gap-2">
               <ThemeToggle />
               
               <Popover>
@@ -86,7 +86,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           </header>
 
           {/* Main Content */}
-          <main className="flex-1 overflow-y-auto">
+          <main className="flex-1 overflow-y-auto overflow-x-hidden">
             {children}
           </main>
         </div>
