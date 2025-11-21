@@ -32,12 +32,12 @@ const WealthEvolutionChart = () => {
   const [selectedRange, setSelectedRange] = useState("1y");
 
   return (
-    <Card className="p-4 bg-card border-border hover:shadow-lg transition-shadow duration-300 w-full h-[360px] flex flex-col">
-      <div className="space-y-3 w-full overflow-hidden flex-1 flex flex-col">
+    <Card className="p-4 bg-card border-border hover:shadow-lg transition-shadow duration-300 w-full h-[320px] flex flex-col">
+      <div className="space-y-2 w-full overflow-hidden flex-1 flex flex-col">
         {/* Header */}
-        <div className="space-y-1.5 w-full">
+        <div className="space-y-1 w-full">
           <h3 className="text-xs font-medium text-muted-foreground">Patrimoine total</h3>
-          <div className="flex flex-col sm:flex-row sm:items-baseline gap-1.5 sm:gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-2">
             <span className="text-2xl font-bold tracking-tight">1 247 850 €</span>
             <div className="flex items-center gap-2 text-xs flex-wrap">
               <div className="flex items-center gap-1 text-secondary">
@@ -58,7 +58,7 @@ const WealthEvolutionChart = () => {
               variant={selectedRange === range.value ? "secondary" : "ghost"}
               size="sm"
               onClick={() => setSelectedRange(range.value)}
-              className={`h-7 px-2.5 text-xs font-medium transition-all flex-shrink-0 ${
+              className={`h-6 px-2 text-[10px] font-medium transition-all flex-shrink-0 ${
                 selectedRange === range.value
                   ? "bg-secondary/20 text-secondary hover:bg-secondary/30"
                   : "hover:bg-muted/50 text-muted-foreground"
@@ -83,22 +83,22 @@ const WealthEvolutionChart = () => {
                 dataKey="date"
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 11 }}
-                dy={10}
+                tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 10 }}
+                dy={8}
               />
               <YAxis
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 11 }}
+                tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 10 }}
                 tickFormatter={(value) => `${(value / 1000)}k`}
-                dx={-10}
+                dx={-8}
               />
               <Tooltip
                 contentStyle={{
                   backgroundColor: "hsl(var(--card))",
                   border: "1px solid hsl(var(--border))",
                   borderRadius: "8px",
-                  fontSize: "12px",
+                  fontSize: "11px",
                 }}
                 formatter={(value: number) => [`${value.toLocaleString("fr-FR")} €`, "Valeur"]}
               />
