@@ -4,7 +4,6 @@ import { AppSidebar } from "@/components/AppSidebar";
 import { Button } from "@/components/ui/button";
 import { User, LogOut, Settings } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
-import BNPPattern from "@/components/BNPPattern";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   Popover,
@@ -26,13 +25,12 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
 
   return (
     <SidebarProvider defaultOpen={true}>
-      <div className="min-h-screen flex w-full bg-background bnp-pattern relative overflow-x-hidden">
-        <BNPPattern />
+      <div className="min-h-screen flex w-full bg-background relative overflow-x-hidden">
         <AppSidebar />
         
         <div className="flex-1 flex flex-col relative ml-56 w-[calc(100%-14rem)]">
           {/* Top Header */}
-          <header className="h-14 border-b bg-card/80 backdrop-blur-xl sticky top-0 z-40 shadow-card flex-shrink-0">
+          <header className="h-14 border-b bg-card/80 backdrop-blur-xl sticky top-0 z-50 shadow-card flex-shrink-0">
             <div className="h-full px-6 flex items-center justify-end gap-2">
               <ThemeToggle />
               
