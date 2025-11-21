@@ -1,89 +1,108 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { TrendingUp, Shield, Target, ArrowRight } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { Target, Calendar } from "lucide-react";
+import GuidedQuestionnaire from "@/components/GuidedQuestionnaire";
+import PrebuiltStrategies from "@/components/PrebuiltStrategies";
+import CustomStrategyBuilder from "@/components/CustomStrategyBuilder";
+import AppointmentModal from "@/components/AppointmentModal";
 
 const Invest = () => {
-  const products = [
-    {
-      title: "Assurance-vie Multisupport",
-      type: "Sécurisé",
-      performance: "+4.2%",
-      risk: "Faible",
-      description: "Investissement progressif avec garantie en capital"
-    },
-    {
-      title: "PEA Dynamique",
-      type: "Croissance",
-      performance: "+8.5%",
-      risk: "Modéré",
-      description: "Actions européennes sélectionnées par nos experts"
-    },
-    {
-      title: "Private Equity",
-      type: "Premium",
-      performance: "+12.8%",
-      risk: "Élevé",
-      description: "Accès exclusif aux fonds non cotés"
-    },
-  ];
+  const [selectedStrategy, setSelectedStrategy] = useState<string | null>(null);
+  const [showAppointmentModal, setShowAppointmentModal] = useState(false);
+  const [questionnaireCompleted, setQuestionnaireCompleted] = useState(false);
+
+  // Mock profile data - in real app, this would come from context
+  const profileData = {
+    firstName: "Client",
+    age: 35,
+    country: "France",
+    experience: "Intermédiaire",
+    riskAppetite: "Équilibré",
+    mainGoal: "Faire fructifier mon patrimoine"
+  };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-7xl">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Investir avec BNP</h1>
-        <p className="text-muted-foreground">Suggestions d'allocation et produits recommandés</p>
+    <div className="container mx-auto px-4 py-8 max-w-5xl">
+      {/* Header */}
+      <div className="mb-8 text-center">
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-secondary/20 mb-4">
+          <Target className="w-8 h-8 text-secondary" />
+        </div>
+        <h1 className="text-3xl font-bold mb-2">Définir ma stratégie d'investissement</h1>
+        <p className="text-muted-foreground max-w-2xl mx-auto">
+          Bienvenue chez BNP Private Banking. Nous allons vous aider à définir une stratégie 
+          d'investissement adaptée à votre situation et vos objectifs.
+        </p>
       </div>
 
-      {/* Recommendation Banner */}
-      <Card className="p-6 mb-8 bg-gradient-to-br from-secondary/10 to-bnp-dark-green/10 border-2 border-secondary/30">
-        <div className="flex items-start gap-3">
-          <div className="p-3 rounded-lg bg-secondary/20">
-            <Target className="w-6 h-6 text-secondary" />
+      {/* SECTION A - Commencer mon profil investisseur */}
+      <div className="space-y-8 mb-12">
+        <GuidedQuestionnaire 
+          profileData={profileData}
+          onComplete={(strategy) => {
+            setSelectedStrategy(strategy);
+            setQuestionnaireCompleted(true);
+          }}
+        />
+      </div>
+
+      <Separator className="my-12" />
+
+      {/* SECTION B - Stratégies recommandées */}
+      <div className="mb-12">
+        <div className="mb-6 text-center">
+          <h2 className="text-2xl font-bold mb-2">Stratégies recommandées pour vous</h2>
+          <p className="text-muted-foreground">
+            Découvrez nos allocations prêtes à l'emploi, conçues par nos experts BNP Private Banking
+          </p>
+        </div>
+        <PrebuiltStrategies onSelect={(strategy) => setSelectedStrategy(strategy)} />
+      </div>
+
+      <Separator className="my-12" />
+
+      {/* SECTION C - Créer ma propre stratégie */}
+      <div className="mb-12">
+        <div className="mb-6 text-center">
+          <h2 className="text-2xl font-bold mb-2">Créer ma propre stratégie</h2>
+          <p className="text-muted-foreground">
+            Vous avez déjà des convictions fortes ? Construisez votre propre allocation
+          </p>
+        </div>
+        <CustomStrategyBuilder onComplete={(strategy) => setSelectedStrategy(strategy)} />
+      </div>
+
+      <Separator className="my-12" />
+
+      {/* SECTION D - Contacter un conseiller */}
+      <Card className="p-6 bg-gradient-to-br from-secondary/10 to-bnp-dark-green/10 border-2 border-secondary/30">
+        <div className="max-w-2xl mx-auto text-center">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-secondary/20 mb-4">
+            <Calendar className="w-6 h-6 text-secondary" />
           </div>
-          <div className="flex-1">
-            <h3 className="font-semibold text-lg mb-2">Recommandation personnalisée</h3>
-            <p className="text-muted-foreground mb-4">
-              Basé sur votre profil équilibré, nous vous suggérons de diversifier avec 60% en fonds sécurisés et 40% en actifs de croissance.
-            </p>
-            <Button className="bg-secondary hover:bg-bnp-dark-green">
-              Voir l'allocation suggérée
-              <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
-          </div>
+          <h3 className="text-xl font-bold mb-3">Besoin d'accompagnement ?</h3>
+          <p className="text-muted-foreground mb-6">
+            Échangez directement avec un expert BNP Private Banking pour structurer votre patrimoine 
+            et affiner votre stratégie d'investissement.
+          </p>
+          <Button 
+            onClick={() => setShowAppointmentModal(true)}
+            size="lg"
+            className="bg-secondary hover:bg-bnp-dark-green"
+          >
+            <Calendar className="mr-2 w-5 h-5" />
+            Planifier un rendez-vous
+          </Button>
         </div>
       </Card>
 
-      {/* Products Grid */}
-      <div className="grid md:grid-cols-3 gap-6">
-        {products.map((product, idx) => (
-          <Card key={idx} className="p-6 border-2 hover:border-secondary/30 hover:shadow-premium transition-all group">
-            <div className="mb-4">
-              <div className="flex items-center justify-between mb-2">
-                <Badge variant="secondary">{product.type}</Badge>
-                <span className="text-sm font-semibold text-secondary">{product.performance}</span>
-              </div>
-              <h3 className="font-bold text-lg mb-2">{product.title}</h3>
-              <p className="text-sm text-muted-foreground mb-3">{product.description}</p>
-            </div>
-
-            <div className="flex items-center gap-2 mb-4 text-sm">
-              {product.risk === "Faible" ? (
-                <Shield className="w-4 h-4 text-secondary" />
-              ) : product.risk === "Modéré" ? (
-                <TrendingUp className="w-4 h-4 text-warning" />
-              ) : (
-                <TrendingUp className="w-4 h-4 text-destructive" />
-              )}
-              <span className="text-muted-foreground">Risque {product.risk.toLowerCase()}</span>
-            </div>
-
-            <Button variant="outline" className="w-full border-2 group-hover:border-secondary/50">
-              En savoir plus
-            </Button>
-          </Card>
-        ))}
-      </div>
+      {/* Appointment Modal */}
+      <AppointmentModal 
+        isOpen={showAppointmentModal} 
+        onClose={() => setShowAppointmentModal(false)} 
+      />
     </div>
   );
 };
