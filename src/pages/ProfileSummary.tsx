@@ -1,70 +1,19 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Shield, Target, TrendingUp, User, MapPin, Award, ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
-import BNPLogo from "@/components/BNPLogo";
-import BNPPattern from "@/components/BNPPattern";
-import AdvisorSection from "@/components/AdvisorSection";
 import { useOnboarding } from "@/contexts/OnboardingContext";
-import { useEffect } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import BNPLogo from "@/components/BNPLogo";
+import ProfileBriefCard from "@/components/ProfileBriefCard";
+import AdvisorContactTab from "@/components/AdvisorContactTab";
+import StrategyFinderTab from "@/components/StrategyFinderTab";
 
 const ProfileSummary = () => {
   const navigate = useNavigate();
   const { data } = useOnboarding();
-
-  useEffect(() => {
-    if (!data.riskAppetite) {
-      navigate("/onboarding");
-    }
-  }, [data, navigate]);
-
-  const getProfileAnalysis = () => {
-    const riskLevel = data.riskAppetite?.toLowerCase() || "";
-    const experience = data.experience?.toLowerCase() || "";
-    
-    if (riskLevel.includes("dynamique") && experience.includes("expérimenté")) {
-      return "Votre profil révèle un investisseur aguerri avec une appétence élevée pour la croissance. Vous êtes prêt à saisir des opportunités ambitieuses tout en optimisant votre allocation.";
-    } else if (riskLevel.includes("prudent") || riskLevel.includes("conservateur")) {
-      return "Votre profil démontre une approche patrimoniale sécurisée et réfléchie. Vous privilégiez la préservation du capital avec une croissance maîtrisée.";
-    } else {
-      return "Votre profil indique une stratégie d'investissement équilibrée, alliant sécurité et opportunités de croissance mesurée.";
-    }
-  };
-
-  const getRecommendations = () => {
-    const recommendations = [];
-    
-    if (data.mainChallenge?.includes("vue claire")) {
-      recommendations.push("Dashboard 360° personnalisé pour une visibilité totale sur votre patrimoine");
-    }
-    
-    if (data.mainGoal?.includes("fructifier")) {
-      recommendations.push("Stratégies de croissance adaptées à votre profil de risque");
-    }
-    
-    if (data.mainGoal?.includes("retraite")) {
-      recommendations.push("Analyse patrimoniale longue durée pour votre retraite");
-    }
-    
-    if (data.experience?.includes("débute")) {
-      recommendations.push("Accompagnement personnalisé par nos experts Private Banking");
-    }
-    
-    if (!recommendations.length) {
-      recommendations.push(
-        "Analyse patrimoniale complète personnalisée",
-        "Accès aux insights IA et recommandations BNP",
-        "Suivi en temps réel de vos actifs"
-      );
-    }
-    
-    return recommendations;
-  };
+  const [activeTab, setActiveTab] = useState("strategy");
 
   return (
-    <div className="min-h-screen bg-[hsl(158,100%,97%)] dark:bg-background relative flex flex-col">
-      
+    <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b bg-card/80 backdrop-blur-xl z-50 shadow-card">
         <div className="container mx-auto px-4 py-4">
@@ -73,130 +22,35 @@ const ProfileSummary = () => {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex items-center justify-center px-4 py-12">
-        <div className="max-w-4xl w-full relative">
-          {/* Success Badge */}
-          <div className="text-center mb-8 animate-fade-in">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-secondary/20 mb-6">
-              <CheckCircle2 className="w-8 h-8 text-secondary" />
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary via-secondary to-bnp-dark-green bg-clip-text text-transparent">
-              Votre Profil BNP Private Banking
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Analyse personnalisée créée avec succès
-            </p>
-          </div>
+      <main className="container max-w-5xl mx-auto px-4 py-8">
+        {/* Profile Brief */}
+        <ProfileBriefCard data={data} />
 
-          {/* Profile Summary Cards */}
-          <div className="grid md:grid-cols-3 gap-4 mb-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <Card className="p-4 border-2 border-secondary/20">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="p-2 rounded-lg bg-secondary/20">
-                  <User className="w-5 h-5 text-secondary" />
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground">Profil</p>
-                  <p className="font-semibold">{data.firstName}</p>
-                </div>
-              </div>
-              <div className="text-xs text-muted-foreground mt-2">
-                {data.age} ans • {data.country}
-              </div>
-            </Card>
+        {/* Main Tabs */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="mt-8">
+          <TabsList className="grid w-full grid-cols-2 h-auto p-1 bg-muted/50">
+            <TabsTrigger 
+              value="advisor" 
+              className="rounded-lg py-3 text-sm font-medium data-[state=active]:bg-card data-[state=active]:shadow-sm"
+            >
+              Contacter un conseiller
+            </TabsTrigger>
+            <TabsTrigger 
+              value="strategy"
+              className="rounded-lg py-3 text-sm font-medium data-[state=active]:bg-card data-[state=active]:shadow-sm"
+            >
+              Trouver une stratégie
+            </TabsTrigger>
+          </TabsList>
 
-            <Card className="p-4 border-2 border-secondary/20">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="p-2 rounded-lg bg-secondary/20">
-                  <Award className="w-5 h-5 text-secondary" />
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground">Expérience</p>
-                  <p className="font-semibold text-sm">{data.experience}</p>
-                </div>
-              </div>
-            </Card>
+          <TabsContent value="advisor" className="mt-6">
+            <AdvisorContactTab />
+          </TabsContent>
 
-            <Card className="p-4 border-2 border-secondary/20">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="p-2 rounded-lg bg-secondary/20">
-                  <TrendingUp className="w-5 h-5 text-secondary" />
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground">Profil risque</p>
-                  <p className="font-semibold text-sm">{data.riskAppetite}</p>
-                </div>
-              </div>
-            </Card>
-          </div>
-
-          {/* Analysis Card */}
-          <Card className="p-8 mb-8 border-2 border-secondary/30 bg-gradient-to-br from-secondary/5 to-bnp-dark-green/5 animate-fade-in" style={{ animationDelay: "0.3s" }}>
-            <div className="flex items-start gap-3 mb-6">
-              <div className="p-3 rounded-lg bg-secondary/20">
-                <Sparkles className="w-6 h-6 text-secondary" />
-              </div>
-              <div>
-                <h2 className="text-xl font-bold mb-2">Analyse BNP Private Banking</h2>
-                <p className="text-muted-foreground leading-relaxed">
-                  {getProfileAnalysis()}
-                </p>
-              </div>
-            </div>
-
-            {/* Key Info */}
-            <div className="grid md:grid-cols-2 gap-4 mt-6 pt-6 border-t">
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <Target className="w-4 h-4 text-secondary" />
-                  <p className="text-sm font-medium">Objectif principal</p>
-                </div>
-                <p className="text-sm text-muted-foreground">{data.mainGoal}</p>
-              </div>
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <Shield className="w-4 h-4 text-secondary" />
-                  <p className="text-sm font-medium">Préoccupation majeure</p>
-                </div>
-                <p className="text-sm text-muted-foreground">{data.mainChallenge}</p>
-              </div>
-            </div>
-
-            {/* Asset Categories */}
-            {data.assetCategories && data.assetCategories.length > 0 && (
-              <div className="mt-6 pt-6 border-t">
-                <p className="text-sm font-medium mb-3">Catégories d'actifs sélectionnées</p>
-                <div className="flex flex-wrap gap-2">
-                  {data.assetCategories.map((category, idx) => (
-                    <Badge key={idx} variant="secondary" className="text-xs">
-                      {category}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            )}
-          </Card>
-
-          {/* Recommendations */}
-          <Card className="p-8 mb-8 animate-fade-in" style={{ animationDelay: "0.4s" }}>
-            <h3 className="text-xl font-bold mb-6">Recommandations personnalisées</h3>
-            <div className="space-y-4">
-              {getRecommendations().map((rec, idx) => (
-                <div key={idx} className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center mt-0.5">
-                    <CheckCircle2 className="w-4 h-4 text-secondary" />
-                  </div>
-                  <p className="text-sm leading-relaxed">{rec}</p>
-                </div>
-              ))}
-            </div>
-          </Card>
-
-          {/* CTA conseiller */}
-          <div className="animate-fade-in max-w-2xl mx-auto" style={{ animationDelay: "0.5s" }}>
-            <AdvisorSection />
-          </div>
-        </div>
+          <TabsContent value="strategy" className="mt-6">
+            <StrategyFinderTab profileData={data} />
+          </TabsContent>
+        </Tabs>
       </main>
     </div>
   );
