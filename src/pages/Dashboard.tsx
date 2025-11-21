@@ -1,8 +1,7 @@
 import DashboardLayout from "@/components/DashboardLayout";
 import WealthEvolutionChart from "@/components/WealthEvolutionChart";
 import DonutAllocation from "@/components/DonutAllocation";
-import PerformanceCard from "@/components/PerformanceCard";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import PerformanceCarousel from "@/components/PerformanceCarousel";
 
 const performanceAssets = [
   {
@@ -40,6 +39,20 @@ const performanceAssets = [
     changePercent: 3.09,
     sparklineData: [58000, 59000, 59500, 60000, 60800, 61392],
   },
+  {
+    name: "Crypto",
+    value: 48900,
+    change: 2445,
+    changePercent: 5.26,
+    sparklineData: [45000, 46000, 46800, 47500, 48200, 48900],
+  },
+  {
+    name: "Livret A",
+    value: 22300,
+    change: 89,
+    changePercent: 0.40,
+    sparklineData: [22100, 22150, 22200, 22250, 22280, 22300],
+  },
 ];
 
 const Dashboard = () => {
@@ -58,28 +71,7 @@ const Dashboard = () => {
           </div>
 
           {/* Performance Section */}
-          <div className="space-y-4 w-full">
-            <div className="flex items-center justify-between flex-wrap gap-2">
-              <h2 className="text-xl font-bold tracking-tight">Ma performance</h2>
-              <span className="text-sm text-muted-foreground">Dernière mise à jour : aujourd'hui</span>
-            </div>
-
-            <ScrollArea className="w-full">
-              <div className="flex gap-4 pb-4">
-                {performanceAssets.map((asset) => (
-                  <PerformanceCard
-                    key={asset.name}
-                    name={asset.name}
-                    value={asset.value}
-                    change={asset.change}
-                    changePercent={asset.changePercent}
-                    sparklineData={asset.sparklineData}
-                  />
-                ))}
-              </div>
-              <ScrollBar orientation="horizontal" />
-            </ScrollArea>
-          </div>
+          <PerformanceCarousel assets={performanceAssets} />
         </div>
       </div>
     </DashboardLayout>

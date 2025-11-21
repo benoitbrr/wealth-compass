@@ -22,7 +22,7 @@ const PerformanceCard = ({
   const chartData = sparklineData.map((value, index) => ({ index, value }));
 
   return (
-    <Card className="p-3 sm:p-4 bg-card border-border hover:shadow-md transition-all duration-200 min-w-[240px] sm:min-w-[280px] w-full max-w-[320px]">
+    <Card className="p-3 sm:p-4 bg-card border-border hover:shadow-md transition-all duration-200 w-[280px] flex-shrink-0">
       <div className="space-y-2 sm:space-y-3 w-full overflow-hidden">
         {/* Header */}
         <div className="flex items-start justify-between w-full">
