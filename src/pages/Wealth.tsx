@@ -173,11 +173,9 @@ export default function PortfolioPage() {
                   subtitle={`${valueLabel} • ${allocationLabel}`}
                   icon={Icon}
                   onClick={() => {
-                    // Préparation pour plus tard (drill-down par catégorie)
                     console.log("Open details for category:", cat.key);
                   }}
-                  // Si AssetCard accepte une prop className, tu peux ajouter :
-                  // className="rounded-2xl h-full"
+                  className={cat.muted ? "opacity-60" : "bg-primary/15 border-primary/60"}
                 />
               </div>
             );
