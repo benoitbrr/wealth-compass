@@ -45,35 +45,41 @@ const performanceAssets = [
 const Dashboard = () => {
   return (
     <DashboardLayout>
-      <div className="p-6 space-y-6 max-w-[1400px] mx-auto">
-        {/* Top Section: Chart + Donut */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <WealthEvolutionChart />
-          <DonutAllocation />
-        </div>
-
-        {/* Performance Section */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold tracking-tight">Ma performance</h2>
-            <span className="text-sm text-muted-foreground">Dernière mise à jour : aujourd'hui</span>
+      <div className="w-full h-full overflow-x-hidden">
+        <div className="p-4 md:p-6 space-y-6 max-w-full mx-auto">
+          {/* Top Section: Chart + Donut */}
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-6 w-full">
+            <div className="w-full min-w-0">
+              <WealthEvolutionChart />
+            </div>
+            <div className="w-full min-w-0">
+              <DonutAllocation />
+            </div>
           </div>
 
-          <ScrollArea className="w-full">
-            <div className="flex gap-4 pb-4">
-              {performanceAssets.map((asset) => (
-                <PerformanceCard
-                  key={asset.name}
-                  name={asset.name}
-                  value={asset.value}
-                  change={asset.change}
-                  changePercent={asset.changePercent}
-                  sparklineData={asset.sparklineData}
-                />
-              ))}
+          {/* Performance Section */}
+          <div className="space-y-4 w-full">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <h2 className="text-xl font-bold tracking-tight">Ma performance</h2>
+              <span className="text-sm text-muted-foreground">Dernière mise à jour : aujourd'hui</span>
             </div>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
+
+            <ScrollArea className="w-full">
+              <div className="flex gap-4 pb-4">
+                {performanceAssets.map((asset) => (
+                  <PerformanceCard
+                    key={asset.name}
+                    name={asset.name}
+                    value={asset.value}
+                    change={asset.change}
+                    changePercent={asset.changePercent}
+                    sparklineData={asset.sparklineData}
+                  />
+                ))}
+              </div>
+              <ScrollBar orientation="horizontal" />
+            </ScrollArea>
+          </div>
         </div>
       </div>
     </DashboardLayout>
