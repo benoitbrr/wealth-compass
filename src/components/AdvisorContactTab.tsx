@@ -26,7 +26,7 @@ const AdvisorContactTab = () => {
           <Button 
             onClick={() => setIsModalOpen(true)}
             size="lg"
-            className="bg-[#00A693] hover:bg-[#00957F] text-white px-8"
+            className="bg-primary hover:bg-bnp-dark-green text-white px-8"
           >
             Contacter un conseiller
           </Button>

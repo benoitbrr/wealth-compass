@@ -147,7 +147,7 @@ const AppointmentModal = ({ isOpen, onClose }: AppointmentModalProps) => {
           </Button>
           <Button 
             onClick={handleSubmit}
-            className="bg-[#00A693] hover:bg-[#00957F]"
+            className="bg-primary hover:bg-bnp-dark-green"
           >
             Demander un rendez-vous
           </Button>

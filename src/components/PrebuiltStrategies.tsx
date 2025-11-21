@@ -138,7 +138,7 @@ const PrebuiltStrategies = ({ onSelect }: PrebuiltStrategiesProps) => {
 
               <Button
                 onClick={() => onSelect(strategy.id)}
-                className="w-full bg-[#00A693] hover:bg-[#00957F]"
+                className="w-full bg-primary hover:bg-bnp-dark-green"
                 size="sm"
               >
                 Choisir cette stratégie

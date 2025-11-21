@@ -48,7 +48,7 @@ const StrategyFinderTab = ({ profileData }: StrategyFinderTabProps) => {
             <Button 
               onClick={() => navigate("/dashboard")}
               size="lg"
-              className="bg-[#00A693] hover:bg-[#00957F]"
+              className="bg-primary hover:bg-bnp-dark-green"
             >
               Créer mon espace et continuer
               <ArrowRight className="ml-2 w-4 h-4" />

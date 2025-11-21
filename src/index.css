@@ -2,140 +2,155 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* BNP Paribas Private Banking Design System
+   All colors MUST be HSL.
+   Palette officielle BNP Paribas Banque Privée
 */
 
 @layer base {
   :root {
+    /* Backgrounds */
     --background: 0 0% 100%;
-    --foreground: 215 25% 15%;
+    --foreground: 0 0% 16%;
 
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 15%;
+    --card-foreground: 0 0% 16%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 15%;
+    --popover-foreground: 0 0% 16%;
 
-    /* BNP Dark Blue Premium */
-    --primary: 215 50% 15%;
+    /* BNP Vert Principal #0E7658 */
+    --primary: 159 79% 29%;
     --primary-foreground: 0 0% 100%;
     
-    /* BNP Green - Official #00965E */
-    --secondary: 158 100% 29%;
+    /* BNP Vert (secondary/accent) */
+    --secondary: 159 79% 29%;
     --secondary-foreground: 0 0% 100%;
     
-    /* BNP Dark Green #006341 */
-    --bnp-dark-green: 158 100% 19%;
+    /* BNP Vert Sapin Sombre #0B3530 */
+    --bnp-dark-green: 171 64% 13%;
     --bnp-dark-green-foreground: 0 0% 100%;
+    
+    /* BNP Or #B38B2E */
+    --gold: 42 60% 44%;
+    --gold-foreground: 0 0% 100%;
+    
+    /* BNP Bordeaux #9E1C21 */
+    --bordeaux: 358 69% 36%;
+    --bordeaux-foreground: 0 0% 100%;
 
-    --muted: 210 20% 97%;
-    --muted-foreground: 215 15% 45%;
+    /* Neutrals */
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 210 20% 96%;
-    --accent-foreground: 215 50% 15%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 16%;
 
-    --destructive: 0 72% 51%;
+    --destructive: 358 69% 36%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 20% 90%;
-    --input: 214 20% 92%;
-    --ring: 158 100% 29%;
+    --border: 0 0% 91%;
+    --input: 0 0% 92%;
+    --ring: 159 79% 29%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
     
-    /* Premium BNP colors */
-    --success: 158 100% 29%;
+    /* Utility colors */
+    --success: 159 79% 29%;
     --success-foreground: 0 0% 100%;
-    --warning: 38 92% 50%;
+    --warning: 42 60% 44%;
     --warning-foreground: 0 0% 100%;
-    --gold: 45 100% 51%;
-    --gold-foreground: 215 50% 15%;
     
     /* Chart colors - BNP palette */
-    --chart-1: 215 50% 15%;
-    --chart-2: 158 100% 29%;
-    --chart-3: 158 100% 19%;
-    --chart-4: 210 100% 55%;
-    --chart-5: 45 100% 51%;
+    --chart-1: 159 79% 29%;
+    --chart-2: 171 64% 13%;
+    --chart-3: 42 60% 44%;
+    --chart-4: 358 69% 36%;
+    --chart-5: 210 100% 55%;
     
-    /* Gradients */
-    --gradient-bnp: linear-gradient(135deg, hsl(158 100% 29%) 0%, hsl(158 100% 19%) 100%);
-    --gradient-premium: linear-gradient(135deg, hsl(215 50% 15%) 0%, hsl(215 50% 25%) 100%);
-    --shadow-premium: 0 10px 40px -10px hsl(158 100% 29% / 0.2);
-    --shadow-card: 0 2px 8px -2px hsl(215 25% 15% / 0.08);
+    /* Shadows */
+    --shadow-premium: 0 10px 40px -10px hsl(159 79% 29% / 0.15);
+    --shadow-card: 0 2px 8px -2px hsl(0 0% 16% / 0.06);
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar light */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 16%;
+    --sidebar-primary: 159 79% 29%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 16%;
+    --sidebar-border: 0 0% 91%;
+    --sidebar-ring: 159 79% 29%;
   }
 
   .dark {
-    /* Dark Private Banking Mode - Ultra Premium */
-    --background: 215 35% 8%;
-    --foreground: 0 0% 98%;
+    /* Dark Private Banking Mode - BNP Sapin Sombre */
+    --background: 171 64% 13%;
+    --foreground: 0 0% 96%;
 
-    --card: 215 30% 12%;
-    --card-foreground: 0 0% 98%;
+    --card: 171 50% 16%;
+    --card-foreground: 0 0% 96%;
 
-    --popover: 215 30% 12%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 171 50% 16%;
+    --popover-foreground: 0 0% 96%;
 
-    /* BNP Green luminescent on dark */
-    --primary: 158 100% 35%;
-    --primary-foreground: 215 35% 8%;
+    /* BNP Vert lumineux en dark */
+    --primary: 159 79% 35%;
+    --primary-foreground: 0 0% 100%;
 
     /* BNP Secondary on dark */
-    --secondary: 158 100% 29%;
+    --secondary: 159 79% 35%;
     --secondary-foreground: 0 0% 100%;
     
-    --bnp-dark-green: 158 100% 19%;
+    --bnp-dark-green: 171 64% 18%;
     --bnp-dark-green-foreground: 0 0% 100%;
+    
+    /* BNP Or plus lumineux en dark */
+    --gold: 42 60% 50%;
+    --gold-foreground: 171 64% 13%;
+    
+    /* BNP Bordeaux */
+    --bordeaux: 358 69% 40%;
+    --bordeaux-foreground: 0 0% 100%;
 
-    --muted: 215 25% 18%;
-    --muted-foreground: 215 10% 60%;
+    --muted: 171 40% 20%;
+    --muted-foreground: 0 0% 70%;
 
-    --accent: 215 25% 20%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 171 40% 22%;
+    --accent-foreground: 0 0% 96%;
 
-    --destructive: 0 72% 51%;
+    --destructive: 358 69% 40%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 215 25% 22%;
-    --input: 215 25% 20%;
-    --ring: 158 100% 35%;
+    --border: 171 40% 24%;
+    --input: 171 40% 22%;
+    --ring: 159 79% 35%;
     
-    --success: 158 100% 35%;
+    --success: 159 79% 35%;
     --success-foreground: 0 0% 100%;
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
-    --gold: 45 100% 55%;
-    --gold-foreground: 215 35% 8%;
+    --warning: 42 60% 50%;
+    --warning-foreground: 171 64% 13%;
     
     /* Chart colors for dark mode */
-    --chart-1: 158 100% 35%;
-    --chart-2: 158 100% 29%;
-    --chart-3: 210 100% 60%;
-    --chart-4: 45 100% 55%;
-    --chart-5: 280 65% 65%;
+    --chart-1: 159 79% 35%;
+    --chart-2: 171 64% 25%;
+    --chart-3: 42 60% 50%;
+    --chart-4: 358 69% 40%;
+    --chart-5: 210 100% 60%;
     
-    /* Dark mode gradients */
-    --gradient-bnp: linear-gradient(135deg, hsl(158 100% 35%) 0%, hsl(158 100% 25%) 100%);
-    --gradient-premium: linear-gradient(135deg, hsl(215 30% 12%) 0%, hsl(215 30% 18%) 100%);
-    --shadow-premium: 0 20px 60px -15px hsl(158 100% 35% / 0.4);
+    /* Dark mode shadows */
+    --shadow-premium: 0 20px 60px -15px hsl(159 79% 35% / 0.3);
     --shadow-card: 0 4px 12px -2px hsl(0 0% 0% / 0.3);
+    
+    /* Sidebar dark - BNP Sapin */
+    --sidebar-background: 171 64% 13%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 159 79% 35%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 171 50% 18%;
+    --sidebar-accent-foreground: 0 0% 96%;
+    --sidebar-border: 171 40% 20%;
+    --sidebar-ring: 159 79% 35%;
   }
 }
 
@@ -146,8 +161,14 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-feature-settings: 'cv11', 'ss01';
+  }
+  
+  /* Typography hierarchy - BNP style */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
   }
   
   /* BNP Geometric Pattern Background */
