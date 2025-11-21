@@ -10,15 +10,15 @@ interface DashboardLayoutProps {
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return (
     <SidebarProvider defaultOpen={true}>
-      <div className="min-h-screen flex w-full bg-background relative overflow-x-hidden">
+      <div className="h-screen flex w-full bg-background relative overflow-x-hidden">
         <AppSidebar />
         
-        <div className="flex-1 flex flex-col relative ml-56 w-[calc(100%-14rem)]">
+        <div className="flex-1 flex flex-col relative ml-56 w-[calc(100%-14rem)] overflow-hidden">
           {/* New Header Band */}
           <HeaderBand />
 
           {/* Main Content */}
-          <main className="flex-1 overflow-y-auto overflow-x-hidden pt-0">
+          <main className="flex-1 overflow-y-auto overflow-x-hidden">
             {children}
           </main>
         </div>
