@@ -62,7 +62,7 @@ const HeaderBand = () => {
           {/* Bouton Compléter mon patrimoine */}
           <Button 
             onClick={() => setIsAddAssetOpen(true)}
-            className="h-9 px-4 rounded-full bg-[#00A693] hover:bg-[#00957F] text-white transition-all duration-300 shadow-md hover:shadow-lg font-medium ml-3"
+            className="h-9 px-4 rounded-full bg-primary hover:bg-bnp-dark-green text-white transition-all duration-300 shadow-md hover:shadow-lg font-medium ml-3"
           >
             <Plus className="w-3.5 h-3.5 mr-1.5" />
             <span className="text-xs hidden sm:inline">Compléter mon patrimoine</span>

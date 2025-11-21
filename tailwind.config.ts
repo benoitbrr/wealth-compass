@@ -59,6 +59,10 @@ export default {
           DEFAULT: "hsl(var(--gold))",
           foreground: "hsl(var(--gold-foreground))",
         },
+        bordeaux: {
+          DEFAULT: "hsl(var(--bordeaux))",
+          foreground: "hsl(var(--bordeaux-foreground))",
+        },
         "bnp-dark-green": {
           DEFAULT: "hsl(var(--bnp-dark-green))",
           foreground: "hsl(var(--bnp-dark-green-foreground))",
@@ -82,9 +86,9 @@ export default {
         },
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        lg: "0.5rem",
+        md: "0.375rem",
+        sm: "0.25rem",
       },
       keyframes: {
         "accordion-down": {
@@ -112,7 +116,8 @@ export default {
         "float": "float 3s ease-in-out infinite",
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Source Sans 3', 'system-ui', 'sans-serif'],
+        serif: ['Playfair Display', 'Georgia', 'serif'],
       },
       boxShadow: {
         'premium': 'var(--shadow-premium)',
