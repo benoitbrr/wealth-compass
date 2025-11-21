@@ -85,54 +85,56 @@ const PrebuiltStrategies = ({ onSelect }: PrebuiltStrategiesProps) => {
           return (
             <Card
               key={strategy.id}
-              className="p-5 hover:shadow-lg transition-shadow"
+              className="p-5 hover:shadow-lg transition-shadow flex flex-col"
             >
-              <div className="flex items-start justify-between mb-4">
-                <div className="p-2 rounded-lg bg-secondary/20">
-                  <Icon className="w-5 h-5 text-secondary" />
+              <div className="flex-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="p-2 rounded-lg bg-secondary/20">
+                    <Icon className="w-5 h-5 text-secondary" />
+                  </div>
+                  <Badge variant="secondary" className="text-xs">
+                    {strategy.badge}
+                  </Badge>
                 </div>
-                <Badge variant="secondary" className="text-xs">
-                  {strategy.badge}
-                </Badge>
-              </div>
 
-              <h4 className="font-bold mb-2">{strategy.title}</h4>
-              <p className="text-sm text-muted-foreground mb-4">
-                {strategy.description}
-              </p>
+                <h4 className="font-bold mb-2">{strategy.title}</h4>
+                <p className="text-sm text-muted-foreground mb-4">
+                  {strategy.description}
+                </p>
 
-              <div className="space-y-3 mb-4">
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Niveau de risque</span>
-                  <span className="font-medium">{strategy.riskLevel}</span>
+                <div className="space-y-3 mb-4">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">Niveau de risque</span>
+                    <span className="font-medium">{strategy.riskLevel}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">Rendement cible</span>
+                    <span className="font-medium">{strategy.target} / an</span>
+                  </div>
                 </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Rendement cible</span>
-                  <span className="font-medium">{strategy.target} / an</span>
-                </div>
-              </div>
 
-              {/* Simple bar visualization */}
-              <div className="mb-4">
-                <p className="text-xs font-medium mb-2">Répartition :</p>
-                <div className="flex h-3 rounded-full overflow-hidden mb-2">
-                  {strategy.allocation.map((item, idx) => (
-                    <div
-                      key={idx}
-                      style={{
-                        width: `${(item.value / total) * 100}%`,
-                        backgroundColor: item.color,
-                      }}
-                    />
-                  ))}
-                </div>
-                <div className="space-y-1">
-                  {strategy.allocation.map((item, idx) => (
-                    <div key={idx} className="flex justify-between text-xs">
-                      <span className="text-muted-foreground">{item.label}</span>
-                      <span className="font-medium">{item.value}%</span>
-                    </div>
-                  ))}
+                {/* Simple bar visualization */}
+                <div className="mb-4">
+                  <p className="text-xs font-medium mb-2">Répartition :</p>
+                  <div className="flex h-3 rounded-full overflow-hidden mb-2">
+                    {strategy.allocation.map((item, idx) => (
+                      <div
+                        key={idx}
+                        style={{
+                          width: `${(item.value / total) * 100}%`,
+                          backgroundColor: item.color,
+                        }}
+                      />
+                    ))}
+                  </div>
+                  <div className="space-y-1">
+                    {strategy.allocation.map((item, idx) => (
+                      <div key={idx} className="flex justify-between text-xs">
+                        <span className="text-muted-foreground">{item.label}</span>
+                        <span className="font-medium">{item.value}%</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
