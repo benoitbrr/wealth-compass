@@ -10,7 +10,6 @@ import ProfileSummary from "./pages/ProfileSummary";
 import Dashboard from "./pages/Dashboard";
 import Wealth from "./pages/Wealth";
 import Analysis from "./pages/Analysis";
-import Budget from "./pages/Budget";
 import Invest from "./pages/Invest";
 import Tools from "./pages/Tools";
 import Community from "./pages/Community";
@@ -37,7 +36,6 @@ const App = () => (
             <Route path="/dashboard" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
             <Route path="/wealth" element={<DashboardLayout><Wealth /></DashboardLayout>} />
             <Route path="/analysis" element={<DashboardLayout><Analysis /></DashboardLayout>} />
-            <Route path="/budget" element={<DashboardLayout><Budget /></DashboardLayout>} />
             <Route path="/invest" element={<DashboardLayout><Invest /></DashboardLayout>} />
             <Route path="/tools" element={<DashboardLayout><Tools /></DashboardLayout>} />
             <Route path="/community" element={<DashboardLayout><Community /></DashboardLayout>} />
