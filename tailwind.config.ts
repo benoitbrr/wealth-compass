@@ -116,7 +116,7 @@ export default {
         "float": "float 3s ease-in-out infinite",
       },
       fontFamily: {
-        sans: ['Source Sans 3', 'system-ui', 'sans-serif'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
         serif: ['Playfair Display', 'Georgia', 'serif'],
       },
       boxShadow: {
