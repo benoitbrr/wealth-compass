@@ -32,7 +32,7 @@ const Invest = () => {
               </p>
             </div>
             <Button
-              onClick={() => navigate("/invest/define")}
+              onClick={() => navigate("/onboarding")}
               className="mt-auto"
               size="lg"
             >
