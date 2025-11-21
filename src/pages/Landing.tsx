@@ -115,7 +115,7 @@ const Landing = () => {
                 </ul>
                 
                 <Button 
-                  onClick={() => navigate("/dashboard")}
+                  onClick={() => navigate("/auth")}
                   variant="outline"
                   className="w-full h-12 text-base border-2 hover:bg-primary/5 group/btn"
                   size="lg"

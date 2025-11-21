@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { OnboardingProvider } from "@/contexts/OnboardingContext";
 import Landing from "./pages/Landing";
+import Auth from "./pages/Auth";
 import ChatOnboarding from "./pages/ChatOnboarding";
 import Dashboard from "./pages/Dashboard";
 import Wealth from "./pages/Wealth";
@@ -31,6 +32,7 @@ const App = () => (
           <Routes>
             {/* Public routes */}
             <Route path="/" element={<Landing />} />
+            <Route path="/auth" element={<Auth />} />
             <Route path="/onboarding" element={<ChatOnboarding />} />
             
             {/* Protected routes with sidebar */}
