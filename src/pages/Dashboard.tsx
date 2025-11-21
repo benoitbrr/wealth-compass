@@ -59,9 +59,9 @@ const Dashboard = () => {
   return (
     <DashboardLayout>
       <div className="w-full h-full overflow-x-hidden">
-        <div className="p-4 md:p-6 space-y-6 max-w-full mx-auto">
+        <div className="p-4 md:p-5 space-y-4 max-w-full mx-auto">
           {/* Top Section: Chart + Donut */}
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-6 w-full">
+          <div className="grid grid-cols-1 xl:grid-cols-[1.8fr_1fr] gap-4 w-full">
             <div className="w-full min-w-0">
               <WealthEvolutionChart />
             </div>

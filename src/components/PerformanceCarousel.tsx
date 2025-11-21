@@ -46,10 +46,10 @@ const PerformanceCarousel = ({ assets }: PerformanceCarouselProps) => {
   };
 
   return (
-    <div className="space-y-4 w-full">
+    <div className="space-y-3 w-full">
       {/* Control Bar */}
       <div className="flex items-center justify-between gap-3 flex-wrap">
-        <h2 className="text-xl font-bold tracking-tight">Ma performance</h2>
+        <h2 className="text-lg font-bold tracking-tight">Ma performance</h2>
         
         <div className="flex items-center gap-2 flex-wrap">
           {/* Filter Buttons */}
