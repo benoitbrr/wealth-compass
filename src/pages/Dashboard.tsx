@@ -34,7 +34,6 @@ const Dashboard = () => {
                   Dashboard
                 </Button>
                 <Button variant="ghost" onClick={() => navigate("/wealth")}>Patrimoine</Button>
-                <Button variant="ghost" onClick={() => navigate("/simulator")}>Simulateur</Button>
                 <Button variant="ghost" onClick={() => navigate("/recommendations")}>
                   Insights
                   <Badge variant="secondary" className="ml-2 h-5 px-1.5 text-xs">AI</Badge>
@@ -165,7 +164,7 @@ const Dashboard = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid md:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-2 gap-4">
           <Card className="p-6 cursor-pointer hover:shadow-premium transition-all border-2 hover:border-primary/20 group" onClick={() => navigate("/wealth")}>
             <h4 className="font-semibold mb-2 group-hover:text-secondary transition-colors">Vue détaillée</h4>
             <p className="text-sm text-muted-foreground mb-3">
@@ -173,17 +172,6 @@ const Dashboard = () => {
             </p>
             <Button variant="ghost" size="sm" className="w-full group-hover:bg-secondary/10">
               Accéder
-              <ArrowUpRight className="ml-2 w-4 h-4" />
-            </Button>
-          </Card>
-          
-          <Card className="p-6 cursor-pointer hover:shadow-premium transition-all border-2 hover:border-primary/20 group" onClick={() => navigate("/simulator")}>
-            <h4 className="font-semibold mb-2 group-hover:text-secondary transition-colors">Simulateur patrimonial</h4>
-            <p className="text-sm text-muted-foreground mb-3">
-              Projetez votre patrimoine futur
-            </p>
-            <Button variant="ghost" size="sm" className="w-full group-hover:bg-secondary/10">
-              Simuler
               <ArrowUpRight className="ml-2 w-4 h-4" />
             </Button>
           </Card>

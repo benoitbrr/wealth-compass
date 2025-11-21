@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Building2, Wallet, TrendingUp, Home, Bitcoin, Briefcase, PiggyBank } from "lucide-react";
+import { ArrowLeft, Building2, TrendingUp, Home, Bitcoin, Briefcase, PiggyBank, Shield } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import AssetCard from "@/components/AssetCard";
 import BNPLogo from "@/components/BNPLogo";
@@ -118,16 +118,15 @@ const Wealth = () => {
 
         {/* Summary Card */}
         <Card className="mt-8 p-6 bg-gradient-to-br from-secondary/10 to-bnp-dark-green/10 border-2 border-secondary/30 shadow-premium">
-          <div className="flex items-center justify-between flex-wrap gap-4">
-            <div>
-              <p className="text-sm text-muted-foreground mb-1">Patrimoine total consolidé</p>
-              <p className="text-4xl font-bold bg-gradient-to-r from-primary via-secondary to-bnp-dark-green bg-clip-text text-transparent">
-                2 847 650 €
-              </p>
-            </div>
-            <Button className="bg-secondary hover:bg-bnp-dark-green" onClick={() => navigate("/simulator")}>
-              Projeter mon patrimoine
-            </Button>
+          <div className="text-center">
+            <p className="text-sm text-muted-foreground mb-2">Patrimoine total consolidé</p>
+            <p className="text-5xl font-bold bg-gradient-to-r from-primary via-secondary to-bnp-dark-green bg-clip-text text-transparent mb-4">
+              2 847 650 €
+            </p>
+            <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
+              <Shield className="w-3 h-3" />
+              Données sécurisées BNP Paribas Wealth Management
+            </p>
           </div>
         </Card>
       </main>

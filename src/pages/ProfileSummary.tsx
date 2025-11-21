@@ -43,7 +43,7 @@ const ProfileSummary = () => {
     }
     
     if (data.mainGoal?.includes("retraite")) {
-      recommendations.push("Simulation patrimoniale longue durée avec projections retraite");
+      recommendations.push("Analyse patrimoniale longue durée pour votre retraite");
     }
     
     if (data.experience?.includes("débute")) {
