@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { ArrowRight, Target, TrendingUp, Shield, Home, Bitcoin, Briefcase, PiggyBank, Building2, Wallet } from "lucide-react";
@@ -114,11 +116,7 @@ const ChatOnboarding = () => {
 
   const handleShowStrategies = () => {
     setMessages(prev => [...prev,
-      { role: "assistant", content: "Voici les stratégies d'investissement que je recommande pour votre profil :" },
-      { role: "assistant", content: "📊 **Stratégie Équilibrée & Croissance**\n\nRendement cible : 3-5% / an\nNiveau de risque : Moyen\n\nRépartition :\n• 30% Fonds diversifiés\n• 25% Actions\n• 20% Obligations\n• 15% Immobilier\n• 10% Private Equity" },
-      { role: "assistant", content: "🛡️ **Stratégie Stabilité & Revenu**\n\nRendement cible : 2-3% / an\nNiveau de risque : Bas\n\nRépartition :\n• 40% Fonds euros / Monétaire\n• 35% Obligations prudentes\n• 25% Immobilier / SCPI" },
-      { role: "assistant", content: "🚀 **Stratégie Croissance Long Terme**\n\nRendement cible : 5-7% / an\nNiveau de risque : Élevé\n\nRépartition :\n• 45% Actions internationales\n• 25% Fonds thématiques\n• 15% Private Equity\n• 10% Immobilier\n• 5% Monétaire" },
-      { role: "assistant", content: "Quelle stratégie vous intéresse le plus ? Vous pouvez également explorer plus d'options dans votre espace d'investissement." }
+      { role: "assistant", content: "Parfait ! Voici les stratégies d'investissement que je recommande pour votre profil :" }
     ]);
     setCurrentStep("strategies");
   };
@@ -363,15 +361,186 @@ const ChatOnboarding = () => {
             {currentStep === "strategies" && (
               <div className="flex gap-4 animate-fade-in">
                 <div className="flex-shrink-0 w-10 h-10" />
-                <div className="flex-1 max-w-2xl">
-                  <Button
-                    onClick={handleComplete}
-                    className="w-full bg-secondary hover:bg-bnp-dark-green"
-                    size="lg"
-                  >
-                    Accéder à mon espace
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Button>
+                <div className="flex-1 max-w-full">
+                  <div className="grid md:grid-cols-3 gap-4 mb-6">
+                    {/* Stratégie Stabilité */}
+                    <Card className="p-5 flex flex-col hover:shadow-lg transition-shadow">
+                      <div className="flex-1">
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="p-2 rounded-lg bg-secondary/20">
+                            <Shield className="w-5 h-5 text-secondary" />
+                          </div>
+                          <Badge variant="secondary" className="text-xs">Prudent</Badge>
+                        </div>
+                        
+                        <h4 className="font-bold mb-2">Stabilité & Revenu</h4>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Pour protéger votre capital tout en générant des revenus réguliers.
+                        </p>
+                        
+                        <div className="space-y-3 mb-4">
+                          <div className="flex justify-between text-sm">
+                            <span className="text-muted-foreground">Niveau de risque</span>
+                            <span className="font-medium">Bas</span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-muted-foreground">Rendement cible</span>
+                            <span className="font-medium">2-3% / an</span>
+                          </div>
+                        </div>
+                        
+                        <div className="mb-4">
+                          <p className="text-xs font-medium mb-2">Répartition :</p>
+                          <div className="space-y-1">
+                            <div className="flex justify-between text-xs">
+                              <span className="text-muted-foreground">Fonds euros / Monétaire</span>
+                              <span className="font-medium">40%</span>
+                            </div>
+                            <div className="flex justify-between text-xs">
+                              <span className="text-muted-foreground">Obligations prudentes</span>
+                              <span className="font-medium">35%</span>
+                            </div>
+                            <div className="flex justify-between text-xs">
+                              <span className="text-muted-foreground">Immobilier / SCPI</span>
+                              <span className="font-medium">25%</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <Button
+                        onClick={handleComplete}
+                        className="w-full bg-primary hover:bg-bnp-dark-green"
+                        size="sm"
+                      >
+                        Je choisis cette stratégie
+                      </Button>
+                    </Card>
+
+                    {/* Stratégie Équilibrée */}
+                    <Card className="p-5 flex flex-col hover:shadow-lg transition-shadow border-2 border-primary/50">
+                      <div className="flex-1">
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="p-2 rounded-lg bg-secondary/20">
+                            <Target className="w-5 h-5 text-secondary" />
+                          </div>
+                          <Badge className="text-xs bg-primary">Recommandée</Badge>
+                        </div>
+                        
+                        <h4 className="font-bold mb-2">Équilibre & Croissance</h4>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Pour chercher une performance supérieure à l'inflation tout en maîtrisant le risque.
+                        </p>
+                        
+                        <div className="space-y-3 mb-4">
+                          <div className="flex justify-between text-sm">
+                            <span className="text-muted-foreground">Niveau de risque</span>
+                            <span className="font-medium">Moyen</span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-muted-foreground">Rendement cible</span>
+                            <span className="font-medium">3-5% / an</span>
+                          </div>
+                        </div>
+                        
+                        <div className="mb-4">
+                          <p className="text-xs font-medium mb-2">Répartition :</p>
+                          <div className="space-y-1">
+                            <div className="flex justify-between text-xs">
+                              <span className="text-muted-foreground">Fonds diversifiés</span>
+                              <span className="font-medium">30%</span>
+                            </div>
+                            <div className="flex justify-between text-xs">
+                              <span className="text-muted-foreground">Actions</span>
+                              <span className="font-medium">25%</span>
+                            </div>
+                            <div className="flex justify-between text-xs">
+                              <span className="text-muted-foreground">Obligations</span>
+                              <span className="font-medium">20%</span>
+                            </div>
+                            <div className="flex justify-between text-xs">
+                              <span className="text-muted-foreground">Immobilier</span>
+                              <span className="font-medium">15%</span>
+                            </div>
+                            <div className="flex justify-between text-xs">
+                              <span className="text-muted-foreground">Private Equity</span>
+                              <span className="font-medium">10%</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <Button
+                        onClick={handleComplete}
+                        className="w-full bg-primary hover:bg-bnp-dark-green"
+                        size="sm"
+                      >
+                        Je choisis cette stratégie
+                      </Button>
+                    </Card>
+
+                    {/* Stratégie Croissance */}
+                    <Card className="p-5 flex flex-col hover:shadow-lg transition-shadow">
+                      <div className="flex-1">
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="p-2 rounded-lg bg-secondary/20">
+                            <TrendingUp className="w-5 h-5 text-secondary" />
+                          </div>
+                          <Badge variant="secondary" className="text-xs">Dynamique</Badge>
+                        </div>
+                        
+                        <h4 className="font-bold mb-2">Croissance Long Terme</h4>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Pour accepter plus de volatilité et viser une croissance forte à long terme.
+                        </p>
+                        
+                        <div className="space-y-3 mb-4">
+                          <div className="flex justify-between text-sm">
+                            <span className="text-muted-foreground">Niveau de risque</span>
+                            <span className="font-medium">Élevé</span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-muted-foreground">Rendement cible</span>
+                            <span className="font-medium">5-7% / an</span>
+                          </div>
+                        </div>
+                        
+                        <div className="mb-4">
+                          <p className="text-xs font-medium mb-2">Répartition :</p>
+                          <div className="space-y-1">
+                            <div className="flex justify-between text-xs">
+                              <span className="text-muted-foreground">Actions internationales</span>
+                              <span className="font-medium">45%</span>
+                            </div>
+                            <div className="flex justify-between text-xs">
+                              <span className="text-muted-foreground">Fonds thématiques</span>
+                              <span className="font-medium">25%</span>
+                            </div>
+                            <div className="flex justify-between text-xs">
+                              <span className="text-muted-foreground">Private Equity</span>
+                              <span className="font-medium">15%</span>
+                            </div>
+                            <div className="flex justify-between text-xs">
+                              <span className="text-muted-foreground">Immobilier</span>
+                              <span className="font-medium">10%</span>
+                            </div>
+                            <div className="flex justify-between text-xs">
+                              <span className="text-muted-foreground">Monétaire</span>
+                              <span className="font-medium">5%</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <Button
+                        onClick={handleComplete}
+                        className="w-full bg-primary hover:bg-bnp-dark-green"
+                        size="sm"
+                      >
+                        Je choisis cette stratégie
+                      </Button>
+                    </Card>
+                  </div>
                 </div>
               </div>
             )}
