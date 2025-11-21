@@ -1,15 +1,8 @@
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, Building2, TrendingUp, Home, Bitcoin, Briefcase, PiggyBank, Shield } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Building2, TrendingUp, Home, Bitcoin, Briefcase, PiggyBank, Shield } from "lucide-react";
 import AssetCard from "@/components/AssetCard";
-import BNPLogo from "@/components/BNPLogo";
-import ThemeToggle from "@/components/ThemeToggle";
-import BNPPattern from "@/components/BNPPattern";
 
 const Wealth = () => {
-  const navigate = useNavigate();
-
   const assets = [
     {
       category: "Comptes BNP Paribas",
@@ -67,69 +60,48 @@ const Wealth = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background bnp-pattern relative">
-      <BNPPattern />
-      
-      {/* Header */}
-      <header className="border-b bg-card/80 backdrop-blur-xl sticky top-0 z-50 shadow-card">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" size="icon" onClick={() => navigate("/dashboard")}>
-                <ArrowLeft className="w-5 h-5" />
-              </Button>
-              <BNPLogo />
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="hidden md:block">
-                <h1 className="text-lg font-bold">Patrimoine détaillé</h1>
-                <p className="text-xs text-muted-foreground">Vue exhaustive de tous vos actifs</p>
+    <div className="container mx-auto px-4 py-8 max-w-6xl">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold mb-2">Patrimoine détaillé</h1>
+        <p className="text-muted-foreground">Vue exhaustive de tous vos actifs</p>
+      </div>
+
+      <div className="space-y-8">
+        {assets.map((category, idx) => (
+          <div key={idx} className="animate-fade-in" style={{ animationDelay: `${idx * 0.1}s` }}>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2 rounded-lg bg-secondary/10">
+                <category.icon className={`w-6 h-6 ${category.color}`} />
               </div>
-              <ThemeToggle />
+              <h2 className="text-xl font-semibold">{category.category}</h2>
+            </div>
+            <div className="grid md:grid-cols-2 gap-4">
+              {category.items.map((item, itemIdx) => (
+                <AssetCard
+                  key={itemIdx}
+                  name={item.name}
+                  amount={item.amount}
+                  change={item.change}
+                />
+              ))}
             </div>
           </div>
-        </div>
-      </header>
+        ))}
+      </div>
 
-      {/* Content */}
-      <main className="container mx-auto px-4 py-8 max-w-6xl relative">
-        <div className="space-y-8">
-          {assets.map((category, idx) => (
-            <div key={idx} className="animate-fade-in" style={{ animationDelay: `${idx * 0.1}s` }}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-lg bg-secondary/10">
-                  <category.icon className={`w-6 h-6 ${category.color}`} />
-                </div>
-                <h2 className="text-xl font-semibold">{category.category}</h2>
-              </div>
-              <div className="grid md:grid-cols-2 gap-4">
-                {category.items.map((item, itemIdx) => (
-                  <AssetCard
-                    key={itemIdx}
-                    name={item.name}
-                    amount={item.amount}
-                    change={item.change}
-                  />
-                ))}
-              </div>
-            </div>
-          ))}
+      {/* Summary Card */}
+      <Card className="mt-8 p-6 bg-gradient-to-br from-secondary/10 to-bnp-dark-green/10 border-2 border-secondary/30 shadow-premium">
+        <div className="text-center">
+          <p className="text-sm text-muted-foreground mb-2">Patrimoine total consolidé</p>
+          <p className="text-5xl font-bold bg-gradient-to-r from-primary via-secondary to-bnp-dark-green bg-clip-text text-transparent mb-4">
+            2 847 650 €
+          </p>
+          <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
+            <Shield className="w-3 h-3" />
+            Données sécurisées BNP Paribas Wealth Management
+          </p>
         </div>
-
-        {/* Summary Card */}
-        <Card className="mt-8 p-6 bg-gradient-to-br from-secondary/10 to-bnp-dark-green/10 border-2 border-secondary/30 shadow-premium">
-          <div className="text-center">
-            <p className="text-sm text-muted-foreground mb-2">Patrimoine total consolidé</p>
-            <p className="text-5xl font-bold bg-gradient-to-r from-primary via-secondary to-bnp-dark-green bg-clip-text text-transparent mb-4">
-              2 847 650 €
-            </p>
-            <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
-              <Shield className="w-3 h-3" />
-              Données sécurisées BNP Paribas Wealth Management
-            </p>
-          </div>
-        </Card>
-      </main>
+      </Card>
     </div>
   );
 };
