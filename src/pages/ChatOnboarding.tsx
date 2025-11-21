@@ -116,9 +116,13 @@ const ChatOnboarding = () => {
     updateData("assetCategories", updated);
   };
 
-  const handleComplete = () => {
-    completeOnboarding();
-    navigate("/dashboard");
+  const handleComplete = async (selectedStrategy: string) => {
+    try {
+      await completeOnboarding(selectedStrategy);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error('Error completing onboarding:', error);
+    }
   };
 
   const handleShowStrategies = () => {
@@ -422,7 +426,7 @@ const ChatOnboarding = () => {
                         </div>
                       </div>
 
-                      <Button onClick={handleComplete} className="w-full bg-primary hover:bg-bnp-dark-green" size="sm">
+                      <Button onClick={() => handleComplete("Stabilité & Revenu")} className="w-full bg-primary hover:bg-bnp-dark-green" size="sm">
                         Je choisis cette stratégie
                       </Button>
                     </Card>
@@ -480,7 +484,7 @@ const ChatOnboarding = () => {
                         </div>
                       </div>
 
-                      <Button onClick={handleComplete} className="w-full bg-primary hover:bg-bnp-dark-green" size="sm">
+                      <Button onClick={() => handleComplete("Équilibre & Croissance")} className="w-full bg-primary hover:bg-bnp-dark-green" size="sm">
                         Je choisis cette stratégie
                       </Button>
                     </Card>
@@ -540,7 +544,7 @@ const ChatOnboarding = () => {
                         </div>
                       </div>
 
-                      <Button onClick={handleComplete} className="w-full bg-primary hover:bg-bnp-dark-green" size="sm">
+                      <Button onClick={() => handleComplete("Croissance Long Terme")} className="w-full bg-primary hover:bg-bnp-dark-green" size="sm">
                         Je choisis cette stratégie
                       </Button>
                     </Card>
