@@ -133,7 +133,7 @@ export default function PortfolioPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 px-6 md:px-8">
       {/* Header Portefeuille */}
       <div className="space-y-2">
         <h1 className="text-3xl md:text-4xl font-display font-semibold">Portefeuille</h1>
