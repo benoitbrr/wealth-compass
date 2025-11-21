@@ -112,7 +112,7 @@ const Landing = () => {
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-primary mt-0.5">•</span>
-                    <span>Insights & projections</span>
+                    <span>Insights & analyses IA</span>
                   </li>
                 </ul>
                 

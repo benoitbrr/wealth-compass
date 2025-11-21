@@ -9,7 +9,6 @@ import ChatOnboarding from "./pages/ChatOnboarding";
 import ProfileSummary from "./pages/ProfileSummary";
 import Dashboard from "./pages/Dashboard";
 import Wealth from "./pages/Wealth";
-import Simulator from "./pages/Simulator";
 import Recommendations from "./pages/Recommendations";
 import NotFound from "./pages/NotFound";
 
@@ -28,7 +27,6 @@ const App = () => (
             <Route path="/profile-summary" element={<ProfileSummary />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/wealth" element={<Wealth />} />
-            <Route path="/simulator" element={<Simulator />} />
             <Route path="/recommendations" element={<Recommendations />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
