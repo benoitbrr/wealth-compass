@@ -31,8 +31,8 @@ export function AppSidebar() {
   const isActive = (path: string) => currentPath === path;
 
   return (
-    <Sidebar className="w-56 transition-colors duration-200" collapsible="none">
-      <SidebarContent className="border-r border-border bg-card relative overflow-hidden">
+    <Sidebar className="w-56 transition-colors duration-200 fixed left-0 top-0 h-screen" collapsible="none">
+      <SidebarContent className="border-r border-border bg-card relative overflow-hidden h-full flex flex-col">
         {/* BNP Pattern Overlay - only visible in dark mode */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none dark:block hidden">
           <svg className="w-full h-full" viewBox="0 0 400 800">
@@ -56,7 +56,7 @@ export function AppSidebar() {
         </div>
 
         {/* Menu Items */}
-        <SidebarGroup className="py-4 relative">
+        <SidebarGroup className="py-4 relative flex-1 overflow-y-auto">
           <SidebarGroupContent>
             <SidebarMenu className="space-y-2 px-3">
               {menuItems.map((item) => {

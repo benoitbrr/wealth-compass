@@ -30,7 +30,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         <BNPPattern />
         <AppSidebar />
         
-        <div className="flex-1 flex flex-col relative">
+        <div className="flex-1 flex flex-col relative ml-56">
           {/* Top Header */}
           <header className="h-14 border-b bg-card/80 backdrop-blur-xl sticky top-0 z-40 shadow-card">
             <div className="h-full px-4 flex items-center justify-end gap-2">
