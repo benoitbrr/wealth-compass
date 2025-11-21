@@ -14,7 +14,166 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      accounts: {
+        Row: {
+          balance: number
+          created_at: string
+          currency: string
+          id: string
+          name: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          balance?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          name: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          balance?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          name?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "accounts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      investment_profile: {
+        Row: {
+          asset_categories: Json | null
+          created_at: string
+          experience: string | null
+          id: string
+          main_challenge: string | null
+          main_goal: string | null
+          risk_appetite: string | null
+          selected_strategy: string | null
+          updated_at: string
+          user_id: string
+          wealth_level: string | null
+        }
+        Insert: {
+          asset_categories?: Json | null
+          created_at?: string
+          experience?: string | null
+          id?: string
+          main_challenge?: string | null
+          main_goal?: string | null
+          risk_appetite?: string | null
+          selected_strategy?: string | null
+          updated_at?: string
+          user_id: string
+          wealth_level?: string | null
+        }
+        Update: {
+          asset_categories?: Json | null
+          created_at?: string
+          experience?: string | null
+          id?: string
+          main_challenge?: string | null
+          main_goal?: string | null
+          risk_appetite?: string | null
+          selected_strategy?: string | null
+          updated_at?: string
+          user_id?: string
+          wealth_level?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "investment_profile_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      positions: {
+        Row: {
+          account_id: string | null
+          asset_type: string
+          created_at: string
+          currency: string
+          current_value: number
+          id: string
+          instrument_name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          account_id?: string | null
+          asset_type: string
+          created_at?: string
+          currency?: string
+          current_value?: number
+          id?: string
+          instrument_name: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          account_id?: string | null
+          asset_type?: string
+          created_at?: string
+          currency?: string
+          current_value?: number
+          id?: string
+          instrument_name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "positions_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "positions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string | null
+          id: string
+          segment: string | null
+        }
+        Insert: {
+          created_at?: string
+          full_name?: string | null
+          id: string
+          segment?: string | null
+        }
+        Update: {
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          segment?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
