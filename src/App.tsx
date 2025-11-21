@@ -13,6 +13,7 @@ import Analysis from "./pages/Analysis";
 import Invest from "./pages/Invest";
 import Tools from "./pages/Tools";
 import Community from "./pages/Community";
+import MyStrategy from "./pages/MyStrategy";
 import Recommendations from "./pages/Recommendations";
 import NotFound from "./pages/NotFound";
 import DashboardLayout from "@/components/DashboardLayout";
@@ -39,6 +40,7 @@ const App = () => (
             <Route path="/invest" element={<DashboardLayout><Invest /></DashboardLayout>} />
             <Route path="/tools" element={<DashboardLayout><Tools /></DashboardLayout>} />
             <Route path="/community" element={<DashboardLayout><Community /></DashboardLayout>} />
+            <Route path="/my-strategy" element={<DashboardLayout><MyStrategy /></DashboardLayout>} />
             <Route path="/recommendations" element={<DashboardLayout><Recommendations /></DashboardLayout>} />
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
