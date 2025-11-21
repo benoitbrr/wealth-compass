@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { TrendingUp, TrendingDown } from "lucide-react";
+import { TrendingUp } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { usePortfolio } from "@/hooks/usePortfolio";
 
 const timeRanges = [
   { label: "1J", value: "1d" },
@@ -13,23 +14,24 @@ const timeRanges = [
   { label: "TOUT", value: "all" },
 ];
 
-const data = [
-  { date: "Jan", value: 850000 },
-  { date: "Fév", value: 920000 },
-  { date: "Mar", value: 880000 },
-  { date: "Avr", value: 950000 },
-  { date: "Mai", value: 1020000 },
-  { date: "Juin", value: 980000 },
-  { date: "Juil", value: 1050000 },
-  { date: "Août", value: 1100000 },
-  { date: "Sep", value: 1080000 },
-  { date: "Oct", value: 1150000 },
-  { date: "Nov", value: 1200000 },
-  { date: "Déc", value: 1247850 },
-];
-
 const WealthEvolutionChart = () => {
   const [selectedRange, setSelectedRange] = useState("1y");
+  const { totalAssets, loading } = usePortfolio();
+
+  // Generate flat historical data showing current total assets
+  // In a real app, this would come from historical portfolio snapshots
+  const data = Array.from({ length: 12 }, (_, i) => ({
+    date: ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin", "Juil", "Août", "Sep", "Oct", "Nov", "Déc"][i],
+    value: totalAssets,
+  }));
+
+  if (loading) {
+    return (
+      <Card className="p-4 bg-card border-border w-full h-[320px] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </Card>
+    );
+  }
 
   return (
     <Card className="p-4 bg-card border-border hover:shadow-lg transition-shadow duration-300 w-full h-[320px] flex flex-col">
@@ -38,12 +40,14 @@ const WealthEvolutionChart = () => {
         <div className="space-y-1 w-full">
           <h3 className="text-xs font-medium text-muted-foreground">Patrimoine total</h3>
           <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-2">
-            <span className="text-2xl font-bold tracking-tight">1 247 850 €</span>
+            <span className="text-2xl font-bold tracking-tight">
+              {totalAssets.toLocaleString('fr-FR')} €
+            </span>
             <div className="flex items-center gap-2 text-xs flex-wrap">
-              <div className="flex items-center gap-1 text-secondary">
+              <div className="flex items-center gap-1 text-muted-foreground">
                 <TrendingUp className="w-3 h-3" />
-                <span className="font-medium">+12 450 €</span>
-                <span className="text-muted-foreground">(+1.01%)</span>
+                <span className="font-medium">0 €</span>
+                <span className="text-muted-foreground">(0.00%)</span>
               </div>
               <span className="text-muted-foreground">24h</span>
             </div>
@@ -90,7 +94,10 @@ const WealthEvolutionChart = () => {
                 axisLine={false}
                 tickLine={false}
                 tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 10 }}
-                tickFormatter={(value) => `${(value / 1000)}k`}
+                tickFormatter={(value) => {
+                  if (value >= 1000000) return `${(value / 1000000).toFixed(0)}M`;
+                  return `${(value / 1000).toFixed(0)}k`;
+                }}
                 dx={-8}
               />
               <Tooltip

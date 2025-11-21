@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Calendar, SlidersHorizontal } from "lucide-react";
+import { Calendar, SlidersHorizontal, TrendingUp } from "lucide-react";
 
 import GuidedQuestionnaire from "@/components/GuidedQuestionnaire";
 import PrebuiltStrategies from "@/components/PrebuiltStrategies";
 import AppointmentModal from "@/components/AppointmentModal";
+import { usePortfolio } from "@/hooks/usePortfolio";
+import { useInvestmentProfile } from "@/hooks/useInvestmentProfile";
 
 const InvestDefineStrategy = () => {
   const navigate = useNavigate();
@@ -15,16 +17,13 @@ const InvestDefineStrategy = () => {
   const [showAppointmentModal, setShowAppointmentModal] = useState(false);
   const [questionnaireCompleted, setQuestionnaireCompleted] = useState(false);
   const [showQuestionnaire, setShowQuestionnaire] = useState(false);
+  
+  const { totalAssets, cashBalance, positions } = usePortfolio();
+  const { investmentProfile } = useInvestmentProfile();
 
-  // Mock profile data
-  const profileData = {
-    firstName: "Client",
-    age: 35,
-    country: "France",
-    experience: "Intermédiaire",
-    riskAppetite: "Équilibré",
-    mainGoal: "Faire fructifier mon patrimoine",
-  };
+  const investedValue = positions.reduce((sum, pos) => sum + Number(pos.current_value), 0);
+  const cashPercentage = totalAssets > 0 ? (cashBalance / totalAssets) * 100 : 0;
+  const investedPercentage = totalAssets > 0 ? (investedValue / totalAssets) * 100 : 0;
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl space-y-10">
@@ -35,6 +34,46 @@ const InvestDefineStrategy = () => {
           Choisissez votre parcours pour construire une stratégie adaptée à votre profil.
         </p>
       </div>
+
+      {/* Current Situation Summary */}
+      <Card className="p-6 bg-gradient-to-br from-primary/5 to-secondary/5 border-primary/20">
+        <div className="flex items-start gap-4">
+          <div className="p-3 rounded-lg bg-primary/10">
+            <TrendingUp className="w-6 h-6 text-primary" />
+          </div>
+          <div className="flex-1">
+            <h3 className="font-semibold mb-2">Votre situation actuelle</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+              <div>
+                <p className="text-muted-foreground">Patrimoine total</p>
+                <p className="text-xl font-bold text-primary">{totalAssets.toLocaleString('fr-FR')} €</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">En liquidités</p>
+                <p className="text-lg font-semibold">
+                  {cashBalance.toLocaleString('fr-FR')} € 
+                  <span className="text-sm text-muted-foreground ml-2">({cashPercentage.toFixed(0)}%)</span>
+                </p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Déjà investi</p>
+                <p className="text-lg font-semibold">
+                  {investedValue.toLocaleString('fr-FR')} € 
+                  <span className="text-sm text-muted-foreground ml-2">({investedPercentage.toFixed(0)}%)</span>
+                </p>
+              </div>
+            </div>
+            {investmentProfile?.selected_strategy && (
+              <div className="mt-3 pt-3 border-t border-border/50">
+                <p className="text-sm">
+                  <span className="text-muted-foreground">Stratégie actuelle :</span>{' '}
+                  <span className="font-semibold text-primary">{investmentProfile.selected_strategy}</span>
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </Card>
 
       {/* Two sub-options */}
       <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -77,7 +116,14 @@ const InvestDefineStrategy = () => {
       {showQuestionnaire && (
         <div className="space-y-6">
           <GuidedQuestionnaire
-            profileData={profileData}
+            profileData={{
+              firstName: "Client",
+              age: 35,
+              country: "France",
+              experience: investmentProfile?.experience || "Intermédiaire",
+              riskAppetite: investmentProfile?.risk_appetite || "Équilibré",
+              mainGoal: investmentProfile?.main_goal || "Faire fructifier mon patrimoine",
+            }}
             onComplete={(strategyIdOrName: string) => {
               setSelectedStrategy(strategyIdOrName);
               setQuestionnaireCompleted(true);
