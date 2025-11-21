@@ -21,6 +21,7 @@ type Step =
   | "wealth"
   | "assets"
   | "risk"
+  | "strategies"
   | "complete";
 
 const ChatOnboarding = () => {
@@ -68,6 +69,7 @@ const ChatOnboarding = () => {
     wealth: 70,
     assets: 85,
     risk: 95,
+    strategies: 98,
     complete: 100,
   }[currentStep];
 
@@ -107,7 +109,18 @@ const ChatOnboarding = () => {
 
   const handleComplete = () => {
     completeOnboarding();
-    navigate("/profile-summary");
+    navigate("/dashboard");
+  };
+
+  const handleShowStrategies = () => {
+    setMessages(prev => [...prev,
+      { role: "assistant", content: "Voici les stratégies d'investissement que je recommande pour votre profil :" },
+      { role: "assistant", content: "📊 **Stratégie Équilibrée & Croissance**\n\nRendement cible : 3-5% / an\nNiveau de risque : Moyen\n\nRépartition :\n• 30% Fonds diversifiés\n• 25% Actions\n• 20% Obligations\n• 15% Immobilier\n• 10% Private Equity" },
+      { role: "assistant", content: "🛡️ **Stratégie Stabilité & Revenu**\n\nRendement cible : 2-3% / an\nNiveau de risque : Bas\n\nRépartition :\n• 40% Fonds euros / Monétaire\n• 35% Obligations prudentes\n• 25% Immobilier / SCPI" },
+      { role: "assistant", content: "🚀 **Stratégie Croissance Long Terme**\n\nRendement cible : 5-7% / an\nNiveau de risque : Élevé\n\nRépartition :\n• 45% Actions internationales\n• 25% Fonds thématiques\n• 15% Private Equity\n• 10% Immobilier\n• 5% Monétaire" },
+      { role: "assistant", content: "Quelle stratégie vous intéresse le plus ? Vous pouvez également explorer plus d'options dans votre espace d'investissement." }
+    ]);
+    setCurrentStep("strategies");
   };
 
   return (
@@ -336,13 +349,29 @@ const ChatOnboarding = () => {
                         updateData("riskAppetite", option);
                         setMessages(prev => [...prev, 
                           { role: "user", content: option },
-                          { role: "assistant", content: "Parfait ! J'ai maintenant toutes les informations nécessaires. Je vais créer votre profil BNP Private Banking personnalisé..." }
+                          { role: "assistant", content: "Parfait ! J'ai maintenant toutes les informations nécessaires. Je vais vous présenter les stratégies adaptées à votre profil..." }
                         ]);
-                        setTimeout(handleComplete, 2000);
+                        setTimeout(handleShowStrategies, 2000);
                       }}
                       delay={idx * 0.1}
                     />
                   ))}
+                </div>
+              </div>
+            )}
+
+            {currentStep === "strategies" && (
+              <div className="flex gap-4 animate-fade-in">
+                <div className="flex-shrink-0 w-10 h-10" />
+                <div className="flex-1 max-w-2xl">
+                  <Button
+                    onClick={handleComplete}
+                    className="w-full bg-secondary hover:bg-bnp-dark-green"
+                    size="lg"
+                  >
+                    Accéder à mon espace
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
                 </div>
               </div>
             )}
