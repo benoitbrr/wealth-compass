@@ -13,23 +13,23 @@ const DonutAllocation = () => {
   const total = allocationData.reduce((acc, item) => acc + item.value, 0);
 
   return (
-    <Card className="p-4 md:p-6 bg-card border-border hover:shadow-lg transition-shadow duration-300 w-full">
-      <div className="space-y-4 md:space-y-6 w-full overflow-hidden">
+    <Card className="p-4 bg-card border-border hover:shadow-lg transition-shadow duration-300 w-full h-[360px] flex flex-col">
+      <div className="space-y-3 w-full overflow-hidden flex-1 flex flex-col">
         {/* Header */}
         <div>
-          <h3 className="text-sm font-medium text-muted-foreground">Répartition</h3>
+          <h3 className="text-xs font-medium text-muted-foreground">Répartition</h3>
         </div>
 
         {/* Donut Chart */}
-        <div className="relative h-[200px] sm:h-[240px] md:h-[280px] w-full">
+        <div className="relative flex-1 w-full min-h-0">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
                 data={allocationData}
                 cx="50%"
                 cy="50%"
-                innerRadius={85}
-                outerRadius={115}
+                innerRadius={70}
+                outerRadius={95}
                 paddingAngle={2}
                 dataKey="value"
               >
@@ -55,26 +55,26 @@ const DonutAllocation = () => {
           {/* Center Text */}
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
             <span className="text-xs text-muted-foreground font-medium">Total</span>
-            <span className="text-xl sm:text-2xl font-bold tracking-tight mt-1">
+            <span className="text-lg font-bold tracking-tight mt-0.5">
               {total.toLocaleString("fr-FR")} €
             </span>
           </div>
         </div>
 
         {/* Legend */}
-        <div className="space-y-2 sm:space-y-2.5 w-full overflow-x-hidden">
+        <div className="space-y-1.5 w-full overflow-x-hidden">
           {allocationData.map((item) => (
-            <div key={item.name} className="flex items-center justify-between text-xs sm:text-sm gap-2">
-              <div className="flex items-center gap-2 min-w-0 flex-1">
+            <div key={item.name} className="flex items-center justify-between text-xs gap-2">
+              <div className="flex items-center gap-1.5 min-w-0 flex-1">
                 <div
-                  className="w-3 h-3 rounded-full flex-shrink-0"
+                  className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                   style={{ backgroundColor: item.color }}
                 />
-                <span className="text-foreground truncate">{item.name}</span>
+                <span className="text-foreground truncate text-xs">{item.name}</span>
               </div>
-              <div className="flex items-center gap-2 flex-shrink-0">
-                <span className="font-medium">{item.value.toLocaleString("fr-FR")} €</span>
-                <span className="text-muted-foreground text-xs">
+              <div className="flex items-center gap-1.5 flex-shrink-0">
+                <span className="font-medium text-xs">{item.value.toLocaleString("fr-FR")} €</span>
+                <span className="text-muted-foreground text-[10px]">
                   {((item.value / total) * 100).toFixed(1)}%
                 </span>
               </div>
