@@ -1,10 +1,10 @@
 "use client";
 
 import { useMemo } from "react";
-import { AssetCard } from "@/components/AssetCard";
+import AssetCard from "@/components/AssetCard";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Landmark, TrendingUp, Bitcoin, Home, Briefcase } from "lucide-react";
+import { Landmark, TrendingUp, Bitcoin, Home, Briefcase, type LucideIcon } from "lucide-react";
 // À adapter si ton hook est ailleurs
 import { usePortfolio } from "@/hooks/usePortfolio";
 
@@ -14,7 +14,7 @@ interface PortfolioCategory {
   key: PortfolioCategoryKey;
   title: string;
   description: string;
-  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  icon: LucideIcon;
   value: number;
   allocation: number;
   muted: boolean;
@@ -37,23 +37,23 @@ export default function PortfolioPage() {
     // Exemple de logique générique sur les positions
     const listedValue =
       positions
-        ?.filter((p) => ["STOCK", "FUND", "ETF"].includes((p.assetType || p.asset_type || "").toUpperCase()))
-        .reduce((sum, p) => sum + (p.currentValue ?? p.current_value ?? 0), 0) ?? 0;
+        ?.filter((p) => ["STOCK", "FUND", "ETF"].includes(p.asset_type.toUpperCase()))
+        .reduce((sum, p) => sum + (p.current_value ?? 0), 0) ?? 0;
 
     const realEstateValue =
       positions
-        ?.filter((p) => ["REAL_ESTATE", "SCPI", "OPCI"].includes((p.assetType || p.asset_type || "").toUpperCase()))
-        .reduce((sum, p) => sum + (p.currentValue ?? p.current_value ?? 0), 0) ?? 0;
+        ?.filter((p) => ["REAL_ESTATE", "SCPI", "OPCI"].includes(p.asset_type.toUpperCase()))
+        .reduce((sum, p) => sum + (p.current_value ?? 0), 0) ?? 0;
 
     const privateEquityValue =
       positions
-        ?.filter((p) => ["PRIVATE_EQUITY", "PE"].includes((p.assetType || p.asset_type || "").toUpperCase()))
-        .reduce((sum, p) => sum + (p.currentValue ?? p.current_value ?? 0), 0) ?? 0;
+        ?.filter((p) => ["PRIVATE_EQUITY", "PE"].includes(p.asset_type.toUpperCase()))
+        .reduce((sum, p) => sum + (p.current_value ?? 0), 0) ?? 0;
 
     const cryptoValue =
       positions
-        ?.filter((p) => ["CRYPTO"].includes((p.assetType || p.asset_type || "").toUpperCase()))
-        .reduce((sum, p) => sum + (p.currentValue ?? p.current_value ?? 0), 0) ?? 0;
+        ?.filter((p) => ["CRYPTO"].includes(p.asset_type.toUpperCase()))
+        .reduce((sum, p) => sum + (p.current_value ?? 0), 0) ?? 0;
 
     const base: Omit<PortfolioCategory, "value" | "allocation" | "muted">[] = [
       {

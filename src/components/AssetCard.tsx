@@ -1,26 +1,31 @@
 import { Card } from "@/components/ui/card";
-import { TrendingUp, TrendingDown } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface AssetCardProps {
-  name: string;
-  amount: number;
-  change: number;
+  title: string;
+  subtitle: string;
+  icon: LucideIcon;
+  onClick?: () => void;
+  className?: string;
 }
 
-const AssetCard = ({ name, amount, change }: AssetCardProps) => {
+const AssetCard = ({ title, subtitle, icon: Icon, onClick, className }: AssetCardProps) => {
   return (
-    <Card className="p-4 hover:shadow-md transition-all hover:border-primary/20">
-      <h3 className="font-medium mb-3 text-sm">{name}</h3>
-      <p className="text-2xl font-bold mb-2">{amount.toLocaleString("fr-FR")} €</p>
-      <div className="flex items-center gap-2">
-        {change >= 0 ? (
-          <TrendingUp className="w-4 h-4 text-secondary" />
-        ) : (
-          <TrendingDown className="w-4 h-4 text-destructive" />
-        )}
-        <span className={`text-sm font-medium ${change >= 0 ? "text-secondary" : "text-destructive"}`}>
-          {change >= 0 ? "+" : ""}{change}% sur 1 an
-        </span>
+    <Card
+      role={onClick ? "button" : undefined}
+      onClick={onClick}
+      className={cn(
+        "group flex aspect-[4/3] md:aspect-square w-full flex-col items-center justify-center gap-3 rounded-2xl border border-border/60 bg-muted/40 px-4 py-5 text-center shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:bg-card hover:shadow-lg",
+        className,
+      )}
+    >
+      <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-primary">
+        <Icon className="h-5 w-5" />
+      </div>
+      <div className="space-y-1">
+        <h3 className="font-semibold text-sm md:text-base text-card-foreground">{title}</h3>
+        <p className="text-xs md:text-sm text-muted-foreground">{subtitle}</p>
       </div>
     </Card>
   );
