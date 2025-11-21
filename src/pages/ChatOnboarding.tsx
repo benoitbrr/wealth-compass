@@ -137,8 +137,7 @@ const ChatOnboarding = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background bnp-pattern relative flex flex-col">
-      <BNPPattern />
+    <div className="min-h-screen bg-background relative flex flex-col">
 
       {/* Header */}
       <header className="border-b bg-card/80 backdrop-blur-xl z-50 shadow-card">
