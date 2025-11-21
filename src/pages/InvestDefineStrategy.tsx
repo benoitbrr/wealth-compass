@@ -6,7 +6,6 @@ import { Calendar, SlidersHorizontal } from "lucide-react";
 
 import GuidedQuestionnaire from "@/components/GuidedQuestionnaire";
 import PrebuiltStrategies from "@/components/PrebuiltStrategies";
-import CustomStrategyBuilder from "@/components/CustomStrategyBuilder";
 import AppointmentModal from "@/components/AppointmentModal";
 
 const InvestDefineStrategy = () => {
@@ -59,7 +58,7 @@ const InvestDefineStrategy = () => {
               Répondre à des questions
             </h2>
             <p className="text-sm text-muted-foreground">
-              Répondez à quelques questions pour obtenir une proposition d'allocation adaptée à votre profil.
+              Répondez à quelques questions pour obtenir une proposition d&apos;allocation adaptée à votre profil.
             </p>
           </div>
           <Button
@@ -107,15 +106,6 @@ const InvestDefineStrategy = () => {
                   >
                     Voir stratégies recommandées
                   </Button>
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      const element = document.getElementById("custom-builder");
-                      if (element) element.scrollIntoView({ behavior: "smooth" });
-                    }}
-                  >
-                    Créer ma propre stratégie
-                  </Button>
                 </div>
               </div>
             </Card>
@@ -128,20 +118,6 @@ const InvestDefineStrategy = () => {
       {/* Prebuilt Strategies */}
       <div id="strategies">
         <PrebuiltStrategies onSelect={(strategyIdOrName: string) => setSelectedStrategy(strategyIdOrName)} />
-      </div>
-
-      <Separator />
-
-      {/* Custom Strategy Builder */}
-      <div id="custom-builder">
-        <div className="mb-6 text-center">
-          <h2 className="text-xl font-bold mb-1">Créer ma propre stratégie</h2>
-          <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
-            Vous avez des convictions particulières ? Ajustez les grandes classes d'actifs pour construire une
-            allocation sur mesure.
-          </p>
-        </div>
-        <CustomStrategyBuilder onComplete={(strategyIdOrName: string) => setSelectedStrategy(strategyIdOrName)} />
       </div>
 
       {/* Appointment Modal */}
