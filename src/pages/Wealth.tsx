@@ -1,0 +1,123 @@
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, Building2, Wallet, TrendingUp, Home, Bitcoin, Briefcase, PiggyBank } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import AssetCard from "@/components/AssetCard";
+
+const Wealth = () => {
+  const navigate = useNavigate();
+
+  const assets = [
+    {
+      category: "Comptes BNP Paribas",
+      icon: Building2,
+      color: "text-primary",
+      items: [
+        { name: "Compte courant", amount: 45230, change: 2.3 },
+        { name: "Compte Premium", amount: 125000, change: 0.8 },
+      ]
+    },
+    {
+      category: "Assurances-vie BNP",
+      icon: PiggyBank,
+      color: "text-secondary",
+      items: [
+        { name: "Horizon Patrimoine", amount: 380000, change: 5.2 },
+        { name: "Multisupport Excellence", amount: 225000, change: 4.1 },
+      ]
+    },
+    {
+      category: "Immobilier",
+      icon: Home,
+      color: "text-chart-3",
+      items: [
+        { name: "Résidence principale (Paris 16e)", amount: 1250000, change: 8.5 },
+        { name: "Appartement locatif (Lyon)", amount: 320000, change: 6.2 },
+      ]
+    },
+    {
+      category: "Bourse & Placements",
+      icon: TrendingUp,
+      color: "text-chart-4",
+      items: [
+        { name: "PEA", amount: 185000, change: 12.8 },
+        { name: "Compte-titres", amount: 142000, change: -2.1 },
+      ]
+    },
+    {
+      category: "Crypto-actifs",
+      icon: Bitcoin,
+      color: "text-chart-5",
+      items: [
+        { name: "Bitcoin", amount: 58420, change: 15.3 },
+        { name: "Ethereum", amount: 32000, change: 8.7 },
+      ]
+    },
+    {
+      category: "Private Equity",
+      icon: Briefcase,
+      color: "text-primary",
+      items: [
+        { name: "Fonds Innovation Tech", amount: 150000, change: 18.2 },
+      ]
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="border-b bg-card/50 backdrop-blur sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="icon" onClick={() => navigate("/dashboard")}>
+              <ArrowLeft className="w-5 h-5" />
+            </Button>
+            <div>
+              <h1 className="text-2xl font-bold">Patrimoine détaillé</h1>
+              <p className="text-sm text-muted-foreground">Vue exhaustive de tous vos actifs</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Content */}
+      <main className="container mx-auto px-4 py-8 max-w-6xl">
+        <div className="space-y-8">
+          {assets.map((category, idx) => (
+            <div key={idx} className="animate-fade-in" style={{ animationDelay: `${idx * 0.1}s` }}>
+              <div className="flex items-center gap-3 mb-4">
+                <category.icon className={`w-6 h-6 ${category.color}`} />
+                <h2 className="text-xl font-semibold">{category.category}</h2>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                {category.items.map((item, itemIdx) => (
+                  <AssetCard
+                    key={itemIdx}
+                    name={item.name}
+                    amount={item.amount}
+                    change={item.change}
+                  />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Summary Card */}
+        <Card className="mt-8 p-6 bg-gradient-to-br from-primary/5 to-secondary/5 border-primary/20">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-muted-foreground mb-1">Patrimoine total consolidé</p>
+              <p className="text-3xl font-bold">2 847 650 €</p>
+            </div>
+            <Button onClick={() => navigate("/simulator")}>
+              Projeter mon patrimoine
+            </Button>
+          </div>
+        </Card>
+      </main>
+    </div>
+  );
+};
+
+export default Wealth;
