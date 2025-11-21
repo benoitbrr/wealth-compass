@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -9,6 +10,7 @@ import PrebuiltStrategies from "@/components/PrebuiltStrategies";
 import AppointmentModal from "@/components/AppointmentModal";
 
 const InvestDefineStrategy = () => {
+  const navigate = useNavigate();
   const [selectedStrategy, setSelectedStrategy] = useState<string | null>(null);
   const [showAppointmentModal, setShowAppointmentModal] = useState(false);
   const [questionnaireCompleted, setQuestionnaireCompleted] = useState(false);
@@ -63,8 +65,8 @@ const InvestDefineStrategy = () => {
           </div>
           <Button
             className="mt-4"
-            onClick={() => setShowQuestionnaire(true)}
-            variant={showQuestionnaire ? "default" : "outline"}
+            onClick={() => navigate("/onboarding")}
+            variant="outline"
           >
             Commencer le questionnaire
           </Button>
