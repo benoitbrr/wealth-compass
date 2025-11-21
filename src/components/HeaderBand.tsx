@@ -18,7 +18,7 @@ const HeaderBand = () => {
 
   return (
     <>
-      <header className="h-14 border-b bg-gradient-to-r from-background via-background to-background dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 backdrop-blur-xl sticky top-0 z-50 shadow-sm flex-shrink-0">
+      <header className="h-14 border-b bg-background dark:bg-[#0B1120] sticky top-0 z-50 shadow-sm flex-shrink-0">
         <div className="h-full px-5 flex items-center justify-end gap-2">
           
           {/* Icônes centrales */}
