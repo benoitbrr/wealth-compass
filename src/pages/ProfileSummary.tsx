@@ -192,24 +192,8 @@ const ProfileSummary = () => {
             </div>
           </Card>
 
-          {/* CTAs */}
-          <div className="grid md:grid-cols-2 gap-4 animate-fade-in" style={{ animationDelay: "0.5s" }}>
-            <Card className="p-6 bg-gradient-to-br from-secondary/10 to-bnp-dark-green/10 border-2 border-secondary/30 hover:shadow-premium transition-all group relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <Shield className="w-10 h-10 text-secondary mb-4 relative" />
-              <h3 className="font-bold text-lg mb-2 relative">Accéder à mon espace</h3>
-              <p className="text-sm text-muted-foreground mb-4 relative">
-                Créez votre compte et commencez à piloter votre patrimoine
-              </p>
-              <Button 
-                onClick={() => navigate("/dashboard")}
-                className="w-full bg-secondary hover:bg-bnp-dark-green relative"
-              >
-                Créer mon compte
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
-            </Card>
-
+          {/* CTA conseiller */}
+          <div className="animate-fade-in max-w-2xl mx-auto" style={{ animationDelay: "0.5s" }}>
             <AdvisorSection />
           </div>
         </div>
