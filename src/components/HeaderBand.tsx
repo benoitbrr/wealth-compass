@@ -69,6 +69,16 @@ const HeaderBand = () => {
             <span className="text-xs sm:hidden">Ajouter</span>
           </Button>
 
+          {/* Valeur totale des actifs */}
+          <div className="hidden lg:flex flex-col items-end ml-6 mr-4 border-l border-border/40 pl-6">
+            <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">
+              Valeur totale des actifs
+            </span>
+            <span className="text-xl font-playfair font-semibold text-foreground mt-0.5">
+              60 000 000 <span className="text-primary">€</span>
+            </span>
+          </div>
+
           {/* Avatar Profil */}
           <Button 
             variant="ghost" 
