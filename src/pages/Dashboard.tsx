@@ -64,8 +64,10 @@ const Dashboard = () => {
           <div className="w-full min-w-0">
             <WealthEvolutionChart />
           </div>
-          <div className="w-full min-w-0">
-            <DonutAllocation />
+          <div className="w-full min-w-0 flex items-stretch">
+            <div className="w-full h-full max-h-[340px] rounded-xl overflow-hidden">
+              <DonutAllocation />
+            </div>
           </div>
         </div>
 
