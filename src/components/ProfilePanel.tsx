@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { 
   User, 
   Link2, 
@@ -21,6 +23,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { toast } from "sonner";
 
 interface ProfilePanelProps {
   open: boolean;
@@ -29,6 +32,40 @@ interface ProfilePanelProps {
 
 const ProfilePanel = ({ open, onOpenChange }: ProfilePanelProps) => {
   const navigate = useNavigate();
+  const [userName, setUserName] = useState<string>("Client BNP");
+  const [userEmail, setUserEmail] = useState<string>("");
+  const [initials, setInitials] = useState<string>("CB");
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (user) {
+        setUserEmail(user.email || "");
+        
+        // Fetch profile for full name
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('full_name')
+          .eq('id', user.id)
+          .single();
+        
+        const fullName = profile?.full_name || user.email?.split('@')[0] || "Client BNP";
+        setUserName(fullName);
+        
+        // Generate initials
+        const names = fullName.split(' ');
+        const userInitials = names.length > 1 
+          ? `${names[0][0]}${names[names.length - 1][0]}`.toUpperCase()
+          : fullName.substring(0, 2).toUpperCase();
+        setInitials(userInitials);
+      }
+    };
+
+    if (open) {
+      fetchUserData();
+    }
+  }, [open]);
 
   const menuItems = [
     { icon: User, label: "Mon compte", action: () => navigate("/profile-summary") },
@@ -46,9 +83,15 @@ const ProfilePanel = ({ open, onOpenChange }: ProfilePanelProps) => {
     { icon: Newspaper, label: "Actualités produit", action: () => {} },
   ];
 
-  const handleLogout = () => {
-    onOpenChange(false);
-    navigate("/");
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      toast.success("Déconnexion réussie");
+      onOpenChange(false);
+      navigate("/");
+    } catch (error) {
+      toast.error("Erreur lors de la déconnexion");
+    }
   };
 
   return (
@@ -72,12 +115,12 @@ const ProfilePanel = ({ open, onOpenChange }: ProfilePanelProps) => {
           >
             <Avatar className="w-12 h-12 ring-2 ring-secondary/20">
               <AvatarFallback className="bg-secondary/20 text-secondary font-semibold">
-                AA
+                {initials}
               </AvatarFallback>
             </Avatar>
             <div className="flex-1 text-left">
-              <p className="font-semibold text-sm">Alice Arnon</p>
-              <p className="text-xs text-muted-foreground">alice.arnon@bnpparibas.com</p>
+              <p className="font-semibold text-sm">{userName}</p>
+              <p className="text-xs text-muted-foreground">{userEmail}</p>
             </div>
             <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 transition-all" />
           </button>
