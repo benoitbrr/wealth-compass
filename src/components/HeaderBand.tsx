@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { 
@@ -17,6 +18,33 @@ const HeaderBand = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isAddAssetOpen, setIsAddAssetOpen] = useState(false);
   const { totalAssets, loading } = usePortfolio();
+  const [userInitials, setUserInitials] = useState<string>("CB");
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (user) {
+        // Fetch profile for full name
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('full_name')
+          .eq('id', user.id)
+          .single();
+        
+        const fullName = profile?.full_name || user.email?.split('@')[0] || "Client BNP";
+        
+        // Generate initials
+        const names = fullName.split(' ');
+        const initials = names.length > 1 
+          ? `${names[0][0]}${names[names.length - 1][0]}`.toUpperCase()
+          : fullName.substring(0, 2).toUpperCase();
+        setUserInitials(initials);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   return (
     <>
@@ -82,7 +110,7 @@ const HeaderBand = () => {
             >
               <Avatar className="w-8 h-8">
                 <AvatarFallback className="bg-secondary/20 text-secondary font-semibold text-xs">
-                  AA
+                  {userInitials}
                 </AvatarFallback>
               </Avatar>
             </Button>
