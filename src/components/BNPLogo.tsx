@@ -6,7 +6,7 @@ const BNPLogo = () => {
       <img 
         src={bnpLogo} 
         alt="BNP Paribas" 
-        className="h-8 w-auto object-contain"
+        className="h-10 w-10 object-contain"
       />
       <div className="flex flex-col">
         <span className="text-sm font-semibold tracking-tight leading-tight">BNP Paribas</span>
