@@ -58,8 +58,9 @@ const performanceAssets = [
 const Dashboard = () => {
   return (
     <div className="w-full h-full overflow-x-hidden">
-      <div className="p-4 md:p-5 space-y-4 max-w-full mx-auto">
-        <div className="grid grid-cols-1 xl:grid-cols-[1.8fr_1fr] gap-4 w-full">
+      <div className="px-4 py-4 md:px-6 md:py-6 space-y-4 max-w-6xl mx-auto">
+        {/* Ligne du haut : courbe + donut */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1.7fr_1fr] gap-4 w-full">
           <div className="w-full min-w-0">
             <WealthEvolutionChart />
           </div>
@@ -68,6 +69,7 @@ const Dashboard = () => {
           </div>
         </div>
 
+        {/* Ligne du bas : Ma performance */}
         <PerformanceCarousel assets={performanceAssets} />
       </div>
     </div>
